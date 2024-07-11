@@ -54,7 +54,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		// 描画
 		map->Draw();
 		player->Draw();
-		player->DrawCollision();
+	
 		enemy->Draw();
 		// デバッグ描画
 		// XYZ軸

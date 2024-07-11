@@ -3,38 +3,31 @@
 #include"Enemy.h"
 #include "DxLib.h"
 
-// 静的定数
-// 速度（1=1m、60fps固定として、時速10km）
-// 10000m ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
-const float Player::Speed = static_cast<float>(10000.0 / 60.0 / 60.0 / 60.0);
-const float Player::Scale = 0.002f;		// スケール
+
+
+
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
-Player::Player()
-	: modelHandle(-1)
-{
-	// ３Ｄモデルの読み込み
-	modelHandle = MV1LoadModel("data/Robot.mv1");
-
-	pos = VGet(10, 0, 0);
-	velocity = VGet(0, 0, 0);
-	dir = VGet(0, 0, 1);
-	width=1;
-   height=1;
-   Depth=1;
-
-}
+//Player::Player()
+//{
+//	// ３Ｄモデルの読み込み
+//	modelHandle = MV1LoadModel("data/Robot.mv1");
+//
+//	pos = VGet(10, 0, 0);
+//	velocity = VGet(0, 0, 0);
+//	dir = VGet(0, 0, 1);
+//	width=1;
+//   height=1;
+//   Depth=1;
+//
+//}
 
 /// <summary>
 /// デストラクタ
 /// </summary>
-Player::~Player()
-{
-	// モデルのアンロード.
-	MV1DeleteModel(modelHandle);
-}
+
 
 /// <summary>
 /// 更新
@@ -50,10 +43,7 @@ void Player::Update()
 	{
 		dir = VAdd(dir, VGet(0, 1, 0));
 	}
-	else if (Key & PAD_INPUT_DOWN)
-	{
-		dir = VAdd(dir, VGet(0, -1, 0));
-	}
+	
 	if (Key & PAD_INPUT_RIGHT)
 	{
 		dir = VAdd(dir, VGet(1, 0, 0));
@@ -100,18 +90,11 @@ void Player::Draw()
 	MV1DrawModel(modelHandle);
 }
 
-void Player::DrawCollision()
-{
-	DrawLine3D(VGet(pos.x-(width), pos.y + height, pos.z), VGet(pos.x+(width), pos.y + height, pos.z), GetColor(255, 0, 0));
-	DrawLine3D(VGet(pos.x - (width), pos.y - height, pos.z), VGet(pos.x + (width), pos.y - height, pos.z), GetColor(255, 0, 0));
 
-	DrawLine3D(VGet(pos.x - (width), pos.y+height, pos.z), VGet(pos.x - (width), pos.y-height, pos.z), GetColor(0, 255, 0));
-	DrawLine3D(VGet(pos.x + (width), pos.y + height, pos.z), VGet(pos.x + (width), pos.y - height, pos.z), GetColor(0, 255, 0));
-}
 
-bool Player::isCollision(Enemy* enemy)
-{
-
-	return false;
-}
-
+//bool Player::isCollision(Enemy* enemy)
+//{
+//
+//	return false;
+//}
+//
