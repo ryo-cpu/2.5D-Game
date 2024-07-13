@@ -29,12 +29,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// 生成
 	Camera* camera = new Camera();
 	Player* player = new Player();
-	Enemy* enemy = new Enemy();
 	Map*	map	   = new Map();
 
 	// ロード
 	map->Load();
-	enemy->Load();
+	
 
 	// エスケープキーが押されるかウインドウが閉じられるまでループ
 	LONGLONG frameTime = 0;
@@ -54,8 +53,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		// 描画
 		map->Draw();
 		player->Draw();
-	
-		enemy->Draw();
 		// デバッグ描画
 		// XYZ軸
 		float lineSize = 300.0f;

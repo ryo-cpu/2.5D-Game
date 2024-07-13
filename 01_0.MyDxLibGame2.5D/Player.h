@@ -2,7 +2,7 @@
 #pragma once
 
 #include "DxLib.h"
-#include"Object.h"f
+#include"Object.h"
 class Enemy;
 /// <summary>
 /// プレイヤークラス
@@ -10,8 +10,10 @@ class Enemy;
 class Player :public Object
 {
 public:
-	Player();				// コンストラクタ.
-	~Player();				// デストラクタ.
+	//Player();				// コンストラクタ.
+	//~Player();				// デストラクタ.
   void	Update() override;			// 更新.
   void Draw() override;
+  static const  float Speed;
+  static const float Scale;
 };
