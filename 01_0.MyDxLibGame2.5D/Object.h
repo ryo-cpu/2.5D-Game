@@ -24,7 +24,16 @@ public:
 	const HitBlock& GetCollison()const { return Collison; }
 	static VECTOR VectorNorm(VECTOR& V1);
 	static VECTOR Outer_Volume(const VECTOR& V1, const VECTOR& V2);
+	static VECTOR VMultiplication(const VECTOR& V1, const VECTOR& V2);
+	static VECTOR PositiveProjectionVector(const VECTOR& Ground, const VECTOR& V1);
 	static bool isCollisonTriangle( const VECTOR &CheckPoint, const VECTOR& Apex1, const VECTOR& Apex2, const VECTOR& Apex3);
+	void SetPos(const VECTOR &Pos);
+	void SetHitBlock(const HitBlock& HitBlock);
+	/// <summary>
+	/// HitBlockからposを逆算する
+	/// </summary>
+	void FixPos();
+	void FixHitBlock();
 protected:
 	int		modelHandle;	// モデルハンドル.
 	VECTOR	pos;			// ポジション.
