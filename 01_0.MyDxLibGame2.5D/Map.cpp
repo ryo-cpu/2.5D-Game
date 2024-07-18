@@ -55,11 +55,13 @@ void Map::Load()
 
 			sprite[i][j] = new WorldSprite();
 			sprite[i][j]->Initialize(chipGraph, ChipPixelSize, MapData[i][j]);
-
+		
 			// マップチップの位置と大きさを設定
 			VECTOR chipHalfOffset = VGet(-Map::ChipSize * 0.5f, -Map::ChipSize * 0.5f, 0);					// マップチップの半分サイズ左下にずらすオフセット
-			VECTOR chipPos = VAdd(VGet((j+ 1)*ChipSize,( MapChipNumY - i)* ChipSize, 0), chipHalfOffset);	// 真ん中ピボットなのでマップチップ半分サイズずらす+地面なので一つ下に
+			VECTOR chipPos = VAdd(VGet((j+ 1)*ChipSize,( MapChipNumY - i)* ChipSize, 0), chipHalfOffset);	// 真ん中ピボットなのでマッチップ半分サイズずらす+地面なので一つ下に
 			sprite[i][j]->SetTransform(chipPos, Map::ChipSize);
+			///画像の頂点を設定
+			sprite[i][j]->SetApex(chipPos, MapData[i][j],Map::ChipSize);
 		}
 	}
 }
