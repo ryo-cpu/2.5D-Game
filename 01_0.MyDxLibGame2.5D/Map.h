@@ -1,7 +1,7 @@
 ﻿// 2023 Takeru Yui All Rights Reserved.
 #pragma once
 #include <vector>
-
+class Object;
 class WorldSprite;
 const int MapChipNumX= 10;
 const int MapChipNumY= 10;
@@ -17,6 +17,9 @@ public:
 	void Load();
 	void Update();
 	void Draw();
+	void HitCalc(Object&object);
+	
+
 
 	// マップチップのサイズ
 	static const float	ChipSize;

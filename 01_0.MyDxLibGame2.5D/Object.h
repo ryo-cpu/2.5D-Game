@@ -29,6 +29,10 @@ public:
 	static bool isCollisonTriangle( const VECTOR &CheckPoint, const VECTOR& Apex1, const VECTOR& Apex2, const VECTOR& Apex3);
 	void SetPos(const VECTOR &Pos);
 	void SetHitBlock(const HitBlock& HitBlock);
+<<<<<<< HEAD
+	VECTOR Push_BackPos(const VECTOR& Apex1, const VECTOR& Apex2, const VECTOR& Apex3);
+=======
+>>>>>>> e5d3c409a3bdf42c940d2ca826fbce199c2c1994
 	/// <summary>
 	/// HitBlock‚©‚çpos‚ð‹tŽZ‚·‚é
 	/// </summary>

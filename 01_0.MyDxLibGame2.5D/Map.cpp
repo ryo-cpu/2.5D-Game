@@ -1,5 +1,6 @@
 ﻿// 2023 Takeru Yui All Rights Reserved.
 #include<vector>
+#include"Object.h"
 #include "Map.h"
 #include "DxLib.h"
 #include "WorldSprite.h"
@@ -86,5 +87,32 @@ void Map::Draw()
 		
 	}
 }
+
+void Map::HitCalc(Object& object)
+{
+	
+	HitBlock Collison = object.GetCollison();
+
+	for (int y = 0; y < MapChipNumY; y++)
+	{
+
+		for (int x = 0; x < MapChipNumX; x++)
+		{
+			if (MapData[y][x] == -1)
+			{
+
+
+
+
+
+
+			}
+
+		}
+
+
+	}
+}
+
 
 
