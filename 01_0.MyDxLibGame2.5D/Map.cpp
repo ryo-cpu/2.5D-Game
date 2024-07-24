@@ -145,8 +145,8 @@ void Map::HitCalc(Object& object)
 					VECTOR Push_BackPower;
 					Push_BackPower = Object::Push_Back_Vector(Collison.UpRight, Apex[0], Apex[1], Apex[2]);
 					///当たっている側だけを押し返す
-					Collison.DownRight = VAdd(Collison.DownLeft, Push_BackPower);
-					Collison.UpRight = VAdd(Collison.UpLeft, Push_BackPower);
+					Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
+					Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
 
 				}
 				
@@ -192,11 +192,11 @@ void Map::HitCalc(Object& object)
 
 
 	}
+	
 	///下の辺の高低差を求める
-	float DifHeight =Collison.DownRight.y-Collison.DownLeft.y;
-	//角度分ずらす
-	Collison.UpLeft.x = Collison.UpLeft.x - DifHeight;
-	Collison.UpRight.x = Collison.UpRight.x - DifHeight;
+	float Cos_LR = VDot(Collison.DownLeft,Collison.DownRight) / (VSize((Collison.DownLeft)) * VSize((Collison.DownRight)));
+    object.SetSlope(VGet(0, -90.f,-acos(Cos_LR)));
+
 	///オブジェクトの方に代入
 	object.SetHitBlock(Collison);
 	///posを修正

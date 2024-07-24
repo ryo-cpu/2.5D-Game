@@ -1,6 +1,5 @@
 ﻿// 2023 Takeru Yui All Rights Reserved.
 #include "Player.h"
-#include"Enemy.h"
 #include "DxLib.h"
 
 
@@ -22,8 +21,9 @@ Player::Player()
 	pos = VGet(10, 0, 0);
 	velocity = VGet(0, 0, 0);
 	dir = VGet(0, 0, 1);
-	width=1;
-   height=1;
+	slope = VGet(0.0f, -90.0f, 0.0f);
+	width=32*Scale;
+   height=32*Scale;
    Depth=0;
    Initialization_HitBlock();
 }
@@ -85,7 +85,7 @@ void Player::Update()
 	MV1SetPosition(modelHandle, pos);
 
 	// 回転
-	MV1SetRotationXYZ(modelHandle, VGet(0.0f, -90.0f, 0.0f));
+	MV1SetRotationXYZ(modelHandle,slope);
 	
 }
 
@@ -96,7 +96,9 @@ void Player::Draw()
 {
 	// ３Ｄモデルの描画
 	MV1DrawModel(modelHandle);
-	DrawTriangle3D(Collison.DownLeft, Collison.UpLeft, Collison.DownRight, GetColor(255, 0, 0), TRUE);
+	DrawTriangle3D(Collison.UpRight, Collison.DownRight, Collison.DownLeft, GetColor(255, 0, 0), FALSE);
+	DrawTriangle3D(Collison.UpLeft, Collison.UpRight, Collison.DownLeft, GetColor(255, 0, 0), FALSE);
+
 }
 
 

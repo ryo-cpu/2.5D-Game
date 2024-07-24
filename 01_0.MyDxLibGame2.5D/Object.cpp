@@ -123,9 +123,9 @@ VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VE
     VECTOR Pos_Intersect_Around3_2 = PositiveProjectionVector(Around_3_2, ChekPoint);
 
     //辺からposへの垂線の交点へのベクトルを求める
-    VECTOR  Pos_to_Around1_2 = VSub(ChekPoint, Pos_Intersect_Around1_2);
-    VECTOR  Pos_to_Around1_3 = VSub(ChekPoint,Pos_Intersect_Around1_3);
-    VECTOR  Pos_to_Around3_2 = VSub(ChekPoint,Pos_Intersect_Around3_2);
+    VECTOR  Pos_to_Around1_2 = VSub(Pos_Intersect_Around1_2,ChekPoint);
+    VECTOR  Pos_to_Around1_3 = VSub(Pos_Intersect_Around1_3,ChekPoint);
+    VECTOR  Pos_to_Around3_2 = VSub(Pos_Intersect_Around3_2,ChekPoint);
 
 
     ///最小値のベクトルを返す
@@ -155,21 +155,36 @@ VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VE
 
 void Object::Initialization_HitBlock()
 {
-    Collison.DownLeft.x = pos.x +width;
-    Collison.DownLeft.y = pos.y - height;
+    Collison.DownLeft.x = pos.x +width/2;
+    Collison.DownLeft.y = pos.y - height/2;
     Collison.DownLeft.z = pos.z;
 
-    Collison.UpLeft.x = pos.x + width;
-    Collison.UpLeft.y = pos.y + height;
+    Collison.UpLeft.x = pos.x + width/2;
+    Collison.UpLeft.y = pos.y + height/2;
     Collison.UpLeft.z = pos.z; 
 
-    Collison.DownRight.x = pos.x - width;
-    Collison.DownRight.y = pos.y - height;
+    Collison.DownRight.x = pos.x - width/2;
+    Collison.DownRight.y = pos.y - height/2;
     Collison.DownRight.z = pos.z;
 
-    Collison.UpRight.x = pos.x - width;
-    Collison.UpRight.y = pos.y + height;
+    Collison.UpRight.x = pos.x - width/2;
+    Collison.UpRight.y = pos.y + height/2;
     Collison.UpRight.z = pos.z;
+    VTransform(Collison.DownLeft, MGetRotZ(slope.z));
+    VTransform(Collison.DownRight, MGetRotZ(slope.z));
+    VTransform(Collison.UpLeft, MGetRotZ(slope.z));
+    VTransform(Collison.UpRight, MGetRotZ(slope.z));
+
+}
+
+void Object::SetDir(const VECTOR& Dir)
+{
+    dir = Dir;
+}
+
+void Object::SetSlope(const VECTOR& Slope)
+{
+    slope = Slope;
 }
 
 
@@ -201,4 +216,9 @@ void Object::FixHitBlock()
     Collison.UpRight.y = pos.y + height;
     Collison.UpRight.z = pos.z;
    
+    VTransform(Collison.DownLeft, MGetRotZ(slope.z));
+    VTransform(Collison.DownRight, MGetRotZ(slope.z));
+    VTransform(Collison.UpLeft, MGetRotZ(slope.z));
+    VTransform(Collison.UpRight, MGetRotZ(slope.z));
+
 }
