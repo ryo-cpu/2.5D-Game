@@ -1,3 +1,4 @@
 \\172.24.10.11\406_Server\配布・提出用フォルダー\由比講師用\MyDxLibGame2.5D\01_0.MyDxLibGame2.5D\Debug\MyDxLibGame3D.exe
 C:\Users\student\Desktop\実戦用\01_0.MyDxLibGame2.5D\Debug\MyDxLibGame3D.exe
 C:\Users\student\Desktop\2.5ddd\01_0.MyDxLibGame2.5D\Debug\MyDxLibGame3D.exe
+C:\Users\諒\OneDrive\デスクトップ\.5\01_0.MyDxLibGame2.5D\Debug\MyDxLibGame3D.exe

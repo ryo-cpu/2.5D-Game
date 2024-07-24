@@ -13,14 +13,13 @@ public:
 	void Draw();
 
 	const VECTOR& GetPos()const { return pos; }
-	const VECTOR *GetApex()const { return Apex; }//ポインターか配列を返したい
+	const VECTOR* GetApex()const { return Apex; }///配列を返したい
 private:
 	int			textureGraph;	// スプライトを作成する元テクスチャのグラフィックハンドル
 	VECTOR		pos;			// 描画ポジション
 	/// 追加　又吉
 	///三角形の頂点座標
 	VECTOR Apex[3];
-
 	VERTEX3D	Vertex[4];		// 頂点バッファ
 	WORD		Index[6];		// インデックスバッファ
 };

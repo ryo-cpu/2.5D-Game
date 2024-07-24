@@ -1,6 +1,7 @@
 ﻿// 2023 Takeru Yui All Rights Reserved.
 #include<vector>
 #include "DxLib.h"
+#include"Object.h"
 #include "Player.h"
 #include "Map.h"
 #include "Camera.h"
@@ -42,7 +43,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		frameTime = GetNowHiPerformanceCount();
 		// プレイヤー制御.
 		player->Update();
-
+		map->HitCalc(*player);
 		// マップチップのサイズ
 		map->Update();
 		camera->Update(*player);

@@ -84,6 +84,8 @@ void Map::Draw()
 		for (int j = 0; j <  MapChipNumX; j++)
 		{
 			sprite[i][j]->Draw();
+			const VECTOR* Apex=sprite[i][j]->GetApex();
+			DrawTriangle3D(Apex[0], Apex[1], Apex[2],GetColor(255,0,0),TRUE);
 		}
 		// ゆくゆくはカメラを持ってきて、カメラ範囲以外表示しないように
 		
@@ -100,12 +102,88 @@ void Map::HitCalc(Object& object)
 
 		for (int x = 0; x < MapChipNumX; x++)
 		{
-			if (MapData[y][x] == -1)
+			if (MapData[y][x] != -1)
 			{
+				///sprite[x][y]の頂点を取得
+				const VECTOR* Apex = sprite[y][x]->GetApex();
+				///一点ずつ当たってるか調べる
+				///左下
+				if (Object::isCollisonTriangle(Collison.DownLeft, Apex[0], Apex[1], Apex[2]))
+				{
+					VECTOR Push_BackPower;
+					Push_BackPower = Object::Push_Back_Vector(Collison.DownLeft, Apex[0], Apex[1], Apex[2]);
+					///当たっている側だけを押し返す
+					Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
+					Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
+
+				}
+				///右下
+				if (Object::isCollisonTriangle(Collison.DownRight, Apex[0], Apex[1], Apex[2]))
+				{
+					VECTOR Push_BackPower;
+					Push_BackPower = Object::Push_Back_Vector(Collison.DownRight, Apex[0], Apex[1], Apex[2]);
+					///当たっている側だけを押し返す
+					Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
+					Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
+
+				}
+
+				///左上
+				if (Object::isCollisonTriangle(Collison.UpLeft, Apex[0], Apex[1], Apex[2]))
+				{
+					VECTOR Push_BackPower;
+					Push_BackPower = Object::Push_Back_Vector(Collison.UpLeft, Apex[0], Apex[1], Apex[2]);
+					///当たっている側だけを押し返す
+					Collison.DownLeft = VAdd(Collison.UpLeft, Push_BackPower);
+					Collison.UpLeft = VAdd(Collison.DownLeft, Push_BackPower);
+
+				}
+				///一点ずつ当たってるか調べる
+				///右上
+				if (Object::isCollisonTriangle(Collison.UpRight, Apex[0], Apex[1], Apex[2]))
+				{
+					VECTOR Push_BackPower;
+					Push_BackPower = Object::Push_Back_Vector(Collison.UpRight, Apex[0], Apex[1], Apex[2]);
+					///当たっている側だけを押し返す
+					Collison.DownRight = VAdd(Collison.DownLeft, Push_BackPower);
+					Collison.UpRight = VAdd(Collison.UpLeft, Push_BackPower);
+
+				}
+				
+			
+
+			}
+
+		}
 
 
+	}
+	///めり込んでないか調べるためもう一周
+	for (int y = 0; y < MapChipNumY; y++)
+	{
 
-
+		for (int x = 0; x < MapChipNumX; x++)
+		{
+			if (MapData[y][x] != -1)
+			{
+				///sprite[x][y]の頂点を取得
+				const VECTOR* Apex = sprite[y][x]->GetApex();
+				
+				///めり込んでないか調べる
+				if ((Object::isCollisonTriangle(Collison.UpRight, Apex[0], Apex[1], Apex[2])) &&
+					(Object::isCollisonTriangle(Collison.UpRight, Apex[0], Apex[1], Apex[2])) &&
+					(Object::isCollisonTriangle(Collison.DownRight, Apex[0], Apex[1], Apex[2])) &&
+					(Object::isCollisonTriangle(Collison.DownLeft, Apex[0], Apex[1], Apex[2])))
+				{
+					///押し返しを元に戻して
+					Collison = object.GetCollison();
+					///動く前に戻す
+					Collison.DownLeft = VSub(Collison.DownLeft, object.GetVelocity());
+					Collison.UpLeft = VSub(Collison.UpLeft, object.GetVelocity());
+					Collison.DownRight = VSub(Collison.DownRight, object.GetVelocity());
+					Collison.UpRight = VSub(Collison.UpRight, object.GetVelocity());
+					break;
+				}
 
 
 			}
@@ -114,6 +192,16 @@ void Map::HitCalc(Object& object)
 
 
 	}
+	///下の辺の高低差を求める
+	float DifHeight =Collison.DownRight.y-Collison.DownLeft.y;
+	//角度分ずらす
+	Collison.UpLeft.x = Collison.UpLeft.x - DifHeight;
+	Collison.UpRight.x = Collison.UpRight.x - DifHeight;
+	///オブジェクトの方に代入
+	object.SetHitBlock(Collison);
+	///posを修正
+	object.FixPos();
+
 }
 
 

@@ -45,28 +45,28 @@ VECTOR Object::VMultiplication(const VECTOR& V1, const VECTOR& V2)
 {
     VECTOR ans;
     ans.x = V1.x * V2.x;
-    ans.x = V1.y* V2.y;
-    ans.x = V1.z * V2.z;
+    ans.y = V1.y* V2.y;
+    ans.z = V1.z * V2.z;
 
-    return VECTOR();
+    return ans;
 }
 
 VECTOR Object::PositiveProjectionVector(const VECTOR& Ground, const VECTOR& V1)
 {
-<<<<<<< HEAD
+
     float GroundLength =VSize(Ground);
-=======
-    float GroundLength = Ground.x * Ground.x + Ground.y * Ground.y+ Ground.z * Ground.z;
->>>>>>> e5d3c409a3bdf42c940d2ca826fbce199c2c1994
+
+  
+
     return VScale(Ground, VDot(Ground, V1) / (GroundLength * GroundLength));
 }
 
 bool Object::isCollisonTriangle(const VECTOR& CheckPoint, const VECTOR& Apex1, const VECTOR& Apex2, const VECTOR& Apex3)
 {
     //checkから各頂点へのベクトル
-    VECTOR Check_to_1 = VSub(CheckPoint,Apex1);
-    VECTOR Check_to_2 = VSub(CheckPoint, Apex2);
-    VECTOR Check_to_3 = VSub(CheckPoint, Apex3);
+    VECTOR Check_to_1 = VSub(Apex1,CheckPoint);
+    VECTOR Check_to_2 = VSub(Apex2, CheckPoint);
+    VECTOR Check_to_3 = VSub(Apex3,CheckPoint);
     //外積を出す
     VECTOR OuterVolume_1 = Outer_Volume(Check_to_1, Check_to_2);
     VECTOR OuterVolume_2 = Outer_Volume(Check_to_2, Check_to_3);
@@ -75,12 +75,13 @@ bool Object::isCollisonTriangle(const VECTOR& CheckPoint, const VECTOR& Apex1, c
     VECTOR OuterVolume_Multiplication = VMultiplication(VMultiplication(OuterVolume_1, OuterVolume_2), OuterVolume_3);
     ///3つの外積をかけたものと２つの外積の符号が同じか確かめる
     ///2つの外積を確かめることでどのパターンでも符号違いが検出できる
-    if (OuterVolume_Multiplication.x<0&&OuterVolume_1.x<0|| OuterVolume_Multiplication.x >= 0 && OuterVolume_1.x >= 0
-      && OuterVolume_Multiplication.y < 0 && OuterVolume_1.y < 0 || OuterVolume_Multiplication.y >= 0 && OuterVolume_1.y >= 0
-      && OuterVolume_Multiplication.z < 0 && OuterVolume_1.z < 0 || OuterVolume_Multiplication.z >= 0 && OuterVolume_1.z >= 0
-        && OuterVolume_Multiplication.x < 0 && OuterVolume_2.x < 0 || OuterVolume_Multiplication.x >= 0 && OuterVolume_2.x >= 0
-        && OuterVolume_Multiplication.y < 0 && OuterVolume_2.y < 0 || OuterVolume_Multiplication.y >= 0 && OuterVolume_2.y >= 0
-        && OuterVolume_Multiplication.z < 0 && OuterVolume_2.z < 0 || OuterVolume_Multiplication.z >= 0 && OuterVolume_2.z >= 0)
+    
+    ///符号違いを確かめるには3つの外積をかけたものと２つの外積をかけたものが＋－でわかる
+    VECTOR Check1 = VMultiplication(OuterVolume_Multiplication, OuterVolume_1);
+    VECTOR Check2=VMultiplication(OuterVolume_Multiplication, OuterVolume_2);
+
+        
+    if (Check1.x>=0&&Check1.y>=0&&Check1.z>=0&& Check2.x >=0 && Check2.y >=0 && Check2.z>=0)
     {
       ///向きが同じなら3角形の内側にポイントがあるからTRUEを返す
         return true;
@@ -89,7 +90,6 @@ bool Object::isCollisonTriangle(const VECTOR& CheckPoint, const VECTOR& Apex1, c
     return false;
 }
 
-<<<<<<< HEAD
 void Object::SetPos(const VECTOR& Pos)
 {
     pos = Pos;
@@ -100,12 +100,17 @@ void Object::SetHitBlock(const HitBlock& HitBlock)
     Collison = HitBlock;
 }
 
-VECTOR Object::Push_BackPos(const VECTOR& Apex1, const VECTOR& Apex2, const VECTOR& Apex3)
+VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VECTOR& Apex2, const VECTOR& Apex3)
 {
     //posから各頂点へのベクトル
-    VECTOR Check_to_1 = VSub(pos,Apex1);
-    VECTOR Check_to_2 = VSub(pos, Apex2);
-    VECTOR Check_to_3 = VSub(pos, Apex3);
+    VECTOR Check_to_1 = VSub(Apex1,ChekPoint);
+    VECTOR Check_to_2 = VSub(Apex2,ChekPoint);
+    VECTOR Check_to_3 = VSub(Apex3,ChekPoint);
+
+    ///ｚ方向には返さないので０にする
+    Check_to_1.z = 0;
+    Check_to_2.z = 0;
+    Check_to_3.z = 0;
 
     //辺のベクトルを求める
     VECTOR Around_1_2 = VSub(Apex2, Apex1);
@@ -113,59 +118,87 @@ VECTOR Object::Push_BackPos(const VECTOR& Apex1, const VECTOR& Apex2, const VECT
     VECTOR Around_3_2 = VSub(Apex2, Apex3);
 
     //辺からposへの垂線が交わる位置を求める
-    VECTOR Pos_Intersect_Around1_2 = PositiveProjectionVector(Around_1_2, pos);
-    VECTOR Pos_Intersect_Around1_3 = PositiveProjectionVector(Around_1_3, pos);
-    VECTOR Pos_Intersect_Around3_2 = PositiveProjectionVector(Around_3_2, pos);
+    VECTOR Pos_Intersect_Around1_2 = PositiveProjectionVector(Around_1_2, ChekPoint);
+    VECTOR Pos_Intersect_Around1_3 = PositiveProjectionVector(Around_1_3, ChekPoint);
+    VECTOR Pos_Intersect_Around3_2 = PositiveProjectionVector(Around_3_2, ChekPoint);
 
     //辺からposへの垂線の交点へのベクトルを求める
-    VECTOR  Pos_to_Around1_2 = VSub(Pos_Intersect_Around1_2, pos);
-    VECTOR  Pos_to_Around1_3 = VSub(Pos_Intersect_Around1_3, pos);
-    VECTOR  Pos_to_Around3_2 = VSub(Pos_Intersect_Around3_2, pos);
+    VECTOR  Pos_to_Around1_2 = VSub(ChekPoint, Pos_Intersect_Around1_2);
+    VECTOR  Pos_to_Around1_3 = VSub(ChekPoint,Pos_Intersect_Around1_3);
+    VECTOR  Pos_to_Around3_2 = VSub(ChekPoint,Pos_Intersect_Around3_2);
 
-    ///ベクトルの長さを求める
-    float Pos_to_Around1_2_Length = VSize(Pos_to_Around1_2);
-    float Pos_to_Around1_3_Length = VSize(Pos_to_Around1_3);
-    float Pos_to_Around3_2_Length = VSize(Pos_to_Around3_2);
 
     ///最小値のベクトルを返す
-    if (Pos_to_Around1_2_Length <= Pos_to_Around1_3_Length)
+    if (VSize(Pos_Intersect_Around1_2) <= VSize(Pos_to_Around1_3))
     {
-        if (Pos_to_Around1_2_Length <= Pos_to_Around3_2_Length)
+        if (VSize(Pos_to_Around1_2) <= VSize(Pos_to_Around3_2))
         {
-            return Pos_to_Around1_2;
+            return (Pos_to_Around1_2);
         }
         else
         {
-            return Pos_to_Around3_2;
+            return ( Pos_to_Around3_2);
         }
     }
     else
     {
-        if (Pos_to_Around1_3_Length <= Pos_to_Around3_2_Length)
+        if (VSize(Pos_to_Around1_3) <= VSize(Pos_to_Around3_2))
         {
-            return Pos_to_Around1_3;
+            return (Pos_to_Around1_3);
         }
         else
         {
-            return Pos_to_Around3_2;
+            return  (Pos_to_Around3_2);
         }
     }
 }
 
+void Object::Initialization_HitBlock()
+{
+    Collison.DownLeft.x = pos.x +width;
+    Collison.DownLeft.y = pos.y - height;
+    Collison.DownLeft.z = pos.z;
+
+    Collison.UpLeft.x = pos.x + width;
+    Collison.UpLeft.y = pos.y + height;
+    Collison.UpLeft.z = pos.z; 
+
+    Collison.DownRight.x = pos.x - width;
+    Collison.DownRight.y = pos.y - height;
+    Collison.DownRight.z = pos.z;
+
+    Collison.UpRight.x = pos.x - width;
+    Collison.UpRight.y = pos.y + height;
+    Collison.UpRight.z = pos.z;
+}
 
 
-=======
->>>>>>> e5d3c409a3bdf42c940d2ca826fbce199c2c1994
+
 void Object::FixPos()
 {
-  
-    pos = VAdd( Collison.UpLeft, VScale(VSub(Collison.UpLeft, Collison.DownRight),0.5f));
+ 
+    //UpLeftにCollisonの対角線をを足す
+    pos = VAdd( Collison.UpLeft, VScale(VSub(Collison.DownRight, Collison.UpLeft),0.5f));
+
 
 }
-<<<<<<< HEAD
 
 void Object::FixHitBlock()
 {
+    Collison.DownLeft.x = pos.x + width;
+    Collison.DownLeft.y = pos.y - height;
+    Collison.DownLeft.z = pos.z;
+
+    Collison.UpLeft.x = pos.x + width;
+    Collison.UpLeft.y = pos.y + height;
+    Collison.UpLeft.z = pos.z;
+
+    Collison.DownRight.x = pos.x - width;
+    Collison.DownRight.y = pos.y - height;
+    Collison.DownRight.z = pos.z;
+
+    Collison.UpRight.x = pos.x - width;
+    Collison.UpRight.y = pos.y + height;
+    Collison.UpRight.z = pos.z;
+   
 }
-=======
->>>>>>> e5d3c409a3bdf42c940d2ca826fbce199c2c1994

@@ -14,28 +14,28 @@ const float Player::Scale = 0.002f;		// スケール
 /// <summary>
 /// コンストラクタ
 /// </summary>
-//Player::Player()
-//{
-//	// ３Ｄモデルの読み込み
-//	modelHandle = MV1LoadModel("data/Robot.mv1");
+Player::Player()
+{
+	// ３Ｄモデルの読み込み
+	modelHandle = MV1LoadModel("data/Robot.mv1");
+
+	pos = VGet(10, 0, 0);
+	velocity = VGet(0, 0, 0);
+	dir = VGet(0, 0, 1);
+	width=1;
+   height=1;
+   Depth=0;
+   Initialization_HitBlock();
+}
+
+Player::~Player()
+{
+	//処理なし
+}
 //
-//	pos = VGet(10, 0, 0);
-//	velocity = VGet(0, 0, 0);
-//	dir = VGet(0, 0, 1);
-//	width=1;
-//   height=1;
-//   Depth=1;
-//
-//}
-
-/// <summary>
-/// デストラクタ
-/// </summary>
+// 
 
 
-/// <summary>
-/// 更新
-/// </summary>
 void Player::Update()
 {
 	// キー入力取得
@@ -56,7 +56,10 @@ void Player::Update()
 	{
 		dir = VAdd(dir, VGet(-1, 0, 0));
 	}
-
+	if (Key & PAD_INPUT_DOWN)
+	{
+		dir = VAdd(dir, VGet(0, -1, 0));
+	}
 	// ゼロ除算避け
 	if (VSquareSize(dir) > 0)
 	{
@@ -67,7 +70,7 @@ void Player::Update()
 	// ポジションを更新.
 	velocity = VScale(dir, Speed);
 	pos = VAdd(pos, velocity);
-
+	FixHitBlock();
 	// 力をかけ終わったベロシティの方向にディレクションを調整.
 	if (VSize(velocity) != 0)
 	{
@@ -83,6 +86,7 @@ void Player::Update()
 
 	// 回転
 	MV1SetRotationXYZ(modelHandle, VGet(0.0f, -90.0f, 0.0f));
+	
 }
 
 /// <summary>
@@ -92,6 +96,7 @@ void Player::Draw()
 {
 	// ３Ｄモデルの描画
 	MV1DrawModel(modelHandle);
+	DrawTriangle3D(Collison.DownLeft, Collison.UpLeft, Collison.DownRight, GetColor(255, 0, 0), TRUE);
 }
 
 
