@@ -31,6 +31,7 @@ public:
 	void Initialization_HitBlock();
 	void SetDir(const VECTOR& Dir);
 	void SetSlope(const VECTOR& Slope);
+	
 
 	///égÇ§ìπãÔ
 	static VECTOR VectorNorm(VECTOR& V1);
@@ -39,6 +40,14 @@ public:
 	static VECTOR PositiveProjectionVector(const VECTOR& Ground, const VECTOR& V1);
 	static bool isCollisonTriangle( const VECTOR &CheckPoint, const VECTOR& Apex1, const VECTOR& Apex2, const VECTOR& Apex3);
     static VECTOR Push_Back_Vector(VECTOR&ChekPoint, const VECTOR& Apex1, const VECTOR& Apex2, const VECTOR& Apex3);
+	/// <summary>
+	/// éwíËÇÃé≤Ç≈âÒì]Ç≥ÇπÇÈ
+	/// </summary>
+	/// <param name="V1">ïœâªÇ≥ÇπÇÈVECTOR</param>
+	/// <param name="Axis">é≤Ç∆Ç»ÇÈVERCTOR</param>
+	/// <param name="Power">âÒì]ÇåàÇﬂÇÈçsóÒ</param>
+	/// <returns></returns>
+	static VECTOR RotFreeAxis(VECTOR& V1,const  VECTOR& Axis,const MATRIX& Power);
 	
 	/// <summary>
 	/// HitBlockÇ©ÇÁposÇãtéZÇ∑ÇÈ

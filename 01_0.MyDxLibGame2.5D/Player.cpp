@@ -22,8 +22,8 @@ Player::Player()
 	velocity = VGet(0, 0, 0);
 	dir = VGet(0, 0, 1);
 	slope = VGet(0.0f, -90.0f, 0.0f);
-	width=32*Scale;
-   height=32*Scale;
+	width=0.5;
+   height=0.5;
    Depth=0;
    Initialization_HitBlock();
 }
@@ -76,7 +76,6 @@ void Player::Update()
 	{
 		dir = VNorm(velocity);
 	}
-	//printfDx("%f %f %f\n", dir.x, dir.y, dir.z);
 
 	// 3Dモデルのスケール決定
 	MV1SetScale(modelHandle, VGet(Scale, Scale, Scale));
@@ -95,9 +94,14 @@ void Player::Update()
 void Player::Draw()
 {
 	// ３Ｄモデルの描画
-	MV1DrawModel(modelHandle);
+	/*MV1DrawModel(modelHandle);*/
 	DrawTriangle3D(Collison.UpRight, Collison.DownRight, Collison.DownLeft, GetColor(255, 0, 0), FALSE);
 	DrawTriangle3D(Collison.UpLeft, Collison.UpRight, Collison.DownLeft, GetColor(255, 0, 0), FALSE);
+	/*DrawFormatString(0, 0, GetColor(255, 12, 3), "方向%f %f %f", dir.x, dir.y, dir.z);
+	DrawFormatString(0, 100, GetColor(255, 12, 3), "左下%f %f %f", Collison.DownLeft.x, Collison.DownLeft.y, Collison.DownLeft.z);
+	DrawFormatString(0, 200, GetColor(255, 12, 3), "左上%f %f %f", Collison.UpLeft.x, Collison.UpLeft.y, Collison.UpLeft.z);
+	DrawFormatString(0, 300, GetColor(255, 12, 3), "右下%f %f %f", Collison.DownRight.x, Collison.DownRight.y, Collison.DownRight.z);
+	DrawFormatString(0, 400, GetColor(255, 12, 3), "右上%f %f %f", Collison.UpRight.x, Collison.UpRight.y, Collison.UpRight.z);*/
 
 }
 

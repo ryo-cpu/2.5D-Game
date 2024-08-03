@@ -103,9 +103,9 @@ void Object::SetHitBlock(const HitBlock& HitBlock)
 VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VECTOR& Apex2, const VECTOR& Apex3)
 {
     //posから各頂点へのベクトル
-    VECTOR Check_to_1 = VSub(Apex1,ChekPoint);
-    VECTOR Check_to_2 = VSub(Apex2,ChekPoint);
-    VECTOR Check_to_3 = VSub(Apex3,ChekPoint);
+    VECTOR Check_to_1 = VSub(ChekPoint, Apex1);
+    VECTOR Check_to_2 = VSub(ChekPoint, Apex2);
+    VECTOR Check_to_3 = VSub(ChekPoint,Apex3);
 
     ///ｚ方向には返さないので０にする
     Check_to_1.z = 0;
@@ -118,9 +118,9 @@ VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VE
     VECTOR Around_3_2 = VSub(Apex2, Apex3);
 
     //辺からposへの垂線が交わる位置を求める
-    VECTOR Pos_Intersect_Around1_2 = PositiveProjectionVector(Around_1_2, ChekPoint);
-    VECTOR Pos_Intersect_Around1_3 = PositiveProjectionVector(Around_1_3, ChekPoint);
-    VECTOR Pos_Intersect_Around3_2 = PositiveProjectionVector(Around_3_2, ChekPoint);
+    VECTOR Pos_Intersect_Around1_2 = PositiveProjectionVector(Around_1_2, Check_to_1);
+    VECTOR Pos_Intersect_Around1_3 = PositiveProjectionVector(Around_1_3, Check_to_1);
+    VECTOR Pos_Intersect_Around3_2 = PositiveProjectionVector(Around_3_2, Check_to_3);
 
     //辺からposへの垂線の交点へのベクトルを求める
     VECTOR  Pos_to_Around1_2 = VSub(Pos_Intersect_Around1_2,ChekPoint);
@@ -133,7 +133,7 @@ VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VE
     {
         if (VSize(Pos_to_Around1_2) <= VSize(Pos_to_Around3_2))
         {
-            return (Pos_to_Around1_2);
+            return(Pos_to_Around1_2);
         }
         else
         {
@@ -170,10 +170,7 @@ void Object::Initialization_HitBlock()
     Collison.UpRight.x = pos.x - width/2;
     Collison.UpRight.y = pos.y + height/2;
     Collison.UpRight.z = pos.z;
-    VTransform(Collison.DownLeft, MGetRotZ(slope.z));
-    VTransform(Collison.DownRight, MGetRotZ(slope.z));
-    VTransform(Collison.UpLeft, MGetRotZ(slope.z));
-    VTransform(Collison.UpRight, MGetRotZ(slope.z));
+  
 
 }
 
@@ -187,6 +184,23 @@ void Object::SetSlope(const VECTOR& Slope)
     slope = Slope;
 }
 
+VECTOR Object::RotFreeAxis(VECTOR& V1,const VECTOR& Axis,const MATRIX& Power)
+{
+    ///Axisを原点とするベクトルから通常のベクトルへ
+    MATRIX Axis_to_Origin = MGetAxis1(VGet(1, 0, 0), VGet(0, 1, 0), VGet(0, 0, 1), Axis);
+    ///通常のベクトルからAxisを原点とするベクトルへ
+    MATRIX Origin_to_Axis = MGetAxis2(VGet(1, 0, 0), VGet(0, 1, 0), VGet(0, 0, 1), Axis);
+    //////Axisを原点とするベクトルから通常のベクトルへ
+    V1 = VTransform(V1, Origin_to_Axis);
+    ///Powerを加える
+    V1 = VTransform(V1, Power);
+    ///通常のベクトルからAxisを原点とするベクトルへ
+    V1 = VTransform(V1, Axis_to_Origin);
+
+    return V1;
+
+}
+
 
 
 void Object::FixPos()
@@ -194,31 +208,15 @@ void Object::FixPos()
  
     //UpLeftにCollisonの対角線をを足す
     pos = VAdd( Collison.UpLeft, VScale(VSub(Collison.DownRight, Collison.UpLeft),0.5f));
-
+  
 
 }
 
 void Object::FixHitBlock()
 {
-    Collison.DownLeft.x = pos.x + width;
-    Collison.DownLeft.y = pos.y - height;
-    Collison.DownLeft.z = pos.z;
-
-    Collison.UpLeft.x = pos.x + width;
-    Collison.UpLeft.y = pos.y + height;
-    Collison.UpLeft.z = pos.z;
-
-    Collison.DownRight.x = pos.x - width;
-    Collison.DownRight.y = pos.y - height;
-    Collison.DownRight.z = pos.z;
-
-    Collison.UpRight.x = pos.x - width;
-    Collison.UpRight.y = pos.y + height;
-    Collison.UpRight.z = pos.z;
-   
-    VTransform(Collison.DownLeft, MGetRotZ(slope.z));
-    VTransform(Collison.DownRight, MGetRotZ(slope.z));
-    VTransform(Collison.UpLeft, MGetRotZ(slope.z));
-    VTransform(Collison.UpRight, MGetRotZ(slope.z));
+    Collison.DownLeft = VAdd(Collison.DownLeft, velocity);
+    Collison.DownRight = VAdd(Collison.DownRight, velocity);
+    Collison.UpLeft = VAdd(Collison.UpLeft, velocity);
+    Collison.UpRight = VAdd(Collison.UpRight, velocity);
 
 }
