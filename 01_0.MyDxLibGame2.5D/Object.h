@@ -40,6 +40,7 @@ public:
 	static VECTOR PositiveProjectionVector(const VECTOR& Ground, const VECTOR& V1);
 	static bool isCollisonTriangle( const VECTOR &CheckPoint, const VECTOR& Apex1, const VECTOR& Apex2, const VECTOR& Apex3);
     static VECTOR Push_Back_Vector(VECTOR&ChekPoint, const VECTOR& Apex1, const VECTOR& Apex2, const VECTOR& Apex3);
+	static bool isEqual_VECTOR(const VECTOR& V1, const VECTOR& V2);
 	/// <summary>
 	/// Žw’è‚ÌŽ²‚Å‰ñ“]‚³‚¹‚é
 	/// </summary>

@@ -103,14 +103,21 @@ void Object::SetHitBlock(const HitBlock& HitBlock)
 VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VECTOR& Apex2, const VECTOR& Apex3)
 {
     //posから各頂点へのベクトル
-    VECTOR Check_to_1 = VSub(ChekPoint, Apex1);
-    VECTOR Check_to_2 = VSub(ChekPoint, Apex2);
-    VECTOR Check_to_3 = VSub(ChekPoint,Apex3);
+    VECTOR Check_to_1 = VSub(Apex1,ChekPoint);
+    VECTOR Check_to_2 = VSub(Apex2,ChekPoint);
+    VECTOR Check_to_3 = VSub(Apex3,ChekPoint);
 
     ///ｚ方向には返さないので０にする
     Check_to_1.z = 0;
     Check_to_2.z = 0;
     Check_to_3.z = 0;
+
+    //一回り大きい三角形へのベクトルにする　押し返しきれないから
+    //float型の正の最小値
+    Check_to_1 = VAdd(Check_to_1, VScale(Object::VectorNorm(Check_to_1), 0.0000001));
+    Check_to_2 = VAdd(Check_to_2, VScale(Object::VectorNorm(Check_to_2), 0.0000001));
+    Check_to_3 = VAdd(Check_to_3, VScale(Object::VectorNorm(Check_to_3), 0.0000001));
+
 
     //辺のベクトルを求める
     VECTOR Around_1_2 = VSub(Apex2, Apex1);
@@ -129,28 +136,44 @@ VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VE
 
 
     ///最小値のベクトルを返す
-    if (VSize(Pos_Intersect_Around1_2) <= VSize(Pos_to_Around1_3))
+    if (VSize(Pos_to_Around1_2) <= VSize(Pos_to_Around1_3))
     {
         if (VSize(Pos_to_Around1_2) <= VSize(Pos_to_Around3_2))
         {
-            return(Pos_to_Around1_2);
+            return Pos_to_Around1_2;
         }
         else
         {
-            return ( Pos_to_Around3_2);
+            return  Pos_to_Around3_2;
         }
     }
     else
     {
         if (VSize(Pos_to_Around1_3) <= VSize(Pos_to_Around3_2))
         {
-            return (Pos_to_Around1_3);
+            return Pos_to_Around1_3;
         }
         else
         {
-            return  (Pos_to_Around3_2);
+            return  Pos_to_Around3_2;
         }
     }
+}
+
+bool Object::isEqual_VECTOR(const VECTOR& V1, const VECTOR& V2)
+{
+    if (V1.x == V2.x)
+    {
+        if (V1.y == V2.y)
+        {
+            if (V1.z == V2.z)
+            {
+                return true;
+            }
+        }
+
+    }
+    return false;
 }
 
 void Object::Initialization_HitBlock()

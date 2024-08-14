@@ -107,77 +107,108 @@ void Map::HitCalc(Object& object)
 				///sprite[x][y]の頂点を取得
 				const VECTOR* Apex = sprite[y][x]->GetApex();
 				///一点ずつ当たってるか調べる
-				///左下
-				if (Object::isCollisonTriangle(Collison.DownLeft, Apex[0], Apex[1], Apex[2]))
+				HITRESULT_LINE HitSensor;
+
+
+				//下線
+				HitSensor= HitCheck_Line_Triangle(Collison.DownLeft, Collison.DownRight, Apex[0], Apex[1], Apex[2]);
+				if (HitSensor.HitFlag)
 				{
 					VECTOR Push_BackPower;
-					Push_BackPower = Object::Push_Back_Vector(Collison.DownLeft, Apex[0], Apex[1], Apex[2]);
-					///当たっている側だけを押し返す
-					Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
-					Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
-					isChengeBlock = true;
+					Push_BackPower = Object::Push_Back_Vector(HitSensor.Position, Apex[0], Apex[1], Apex[2]);
+					
+					//辺の長さを内分
+					float OLL = VSize( VSub(Collison.DownRight, Collison.DownLeft));
+					float L_S = VSize( VSub(Collison.DownLeft, HitSensor.Position));
+					float R_S = VSize(VSub(Collison.DownRight, HitSensor.Position));
+
+					float Magnifivation_From_OLL_to_L = L_S / OLL;
+					float Magnifivation_From_OLL_to_R = R_S / OLL;
+
+
+
+					///Push_BackPowerを内分したものにかける
+					Collison.DownRight = VAdd(Collison.DownRight,VScale(Push_BackPower,Magnifivation_From_OLL_to_L));
+					Collison.UpRight = VAdd(Collison.UpRight,VScale( Push_BackPower,Magnifivation_From_OLL_to_L));
+					Collison.DownLeft = VAdd(Collison.DownLeft,VScale(Push_BackPower,Magnifivation_From_OLL_to_R));
+					Collison.UpLeft = VAdd(Collison.UpLeft,VScale( Push_BackPower,Magnifivation_From_OLL_to_R));
 
 				}
-				///右下
-				if (Object::isCollisonTriangle(Collison.DownRight, Apex[0], Apex[1], Apex[2]))
+
+				//上線
+				HitSensor = HitCheck_Line_Triangle(Collison.UpLeft, Collison.UpRight, Apex[0], Apex[1], Apex[2]);
+				if (HitSensor.HitFlag)
 				{
 					VECTOR Push_BackPower;
-					Push_BackPower = Object::Push_Back_Vector(Collison.DownRight, Apex[0], Apex[1], Apex[2]);
-					///当たっている側だけを押し返す
-					Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
-					Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
-					isChengeBlock = true;
+					Push_BackPower = Object::Push_Back_Vector(HitSensor.Position, Apex[0], Apex[1], Apex[2]);
+
+					//辺の長さを内分
+					float OLL = VSize(VSub(Collison.UpRight, Collison.UpLeft));
+					float L_S = VSize(VSub(Collison.UpLeft, HitSensor.Position));
+					float R_S = VSize(VSub(Collison.UpRight, HitSensor.Position));
+
+					float Magnifivation_From_OLL_to_L = L_S / OLL;
+					float Magnifivation_From_OLL_to_R = R_S / OLL;
+
+
+
+					///Push_BackPowerを内分したものにかける
+					Collison.DownRight = VAdd(Collison.DownRight, VScale(Push_BackPower, Magnifivation_From_OLL_to_L));
+					Collison.UpRight = VAdd(Collison.UpRight, VScale(Push_BackPower, Magnifivation_From_OLL_to_L));
+					Collison.DownLeft = VAdd(Collison.DownLeft, VScale(Push_BackPower, Magnifivation_From_OLL_to_R));
+					Collison.UpLeft = VAdd(Collison.UpLeft, VScale(Push_BackPower, Magnifivation_From_OLL_to_R));
 
 				}
-				/*///下中央
-				if (Object::isCollisonTriangle(VSub(Collison.DownRight,Collison.DownLeft), Apex[0], Apex[1], Apex[2]))
-				{
-					VECTOR Push_BackPower;
-					Push_BackPower = Object::Push_Back_Vector(VSub(Collison.DownRight, Collison.DownLeft), Apex[0], Apex[1], Apex[2]);
-					///当たっている側だけを押し返す
-					Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
-					Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
-					Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
-					Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
-					isChengeBlock = true;
 
-				}*/
+				//右線
+				HitSensor = HitCheck_Line_Triangle(Collison.DownRight, Collison.UpRight, Apex[0], Apex[1], Apex[2]);
+				if (HitSensor.HitFlag)
+				{
+					VECTOR Push_BackPower;
+					Push_BackPower = Object::Push_Back_Vector(HitSensor.Position, Apex[0], Apex[1], Apex[2]);
 
-				///左上
-				if (Object::isCollisonTriangle(Collison.UpLeft, Apex[0], Apex[1], Apex[2]))
-				{
-					VECTOR Push_BackPower;
-					Push_BackPower = Object::Push_Back_Vector(Collison.UpLeft, Apex[0], Apex[1], Apex[2]);
-					///当たっている側だけを押し返す
-					Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
-					Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
-					isChengeBlock = true;
-				}
-				///一点ずつ当たってるか調べる
-				///右上
-				if (Object::isCollisonTriangle(Collison.UpRight, Apex[0], Apex[1], Apex[2]))
-				{
-					VECTOR Push_BackPower;
-					Push_BackPower = Object::Push_Back_Vector(Collison.UpRight, Apex[0], Apex[1], Apex[2]);
-					///当たっている側だけを押し返す
-					Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
-					Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
-					isChengeBlock = true;
+					//辺の長さを内分
+					float OLL = VSize(VSub(Collison.DownRight, Collison.UpRight));
+					float U_S = VSize(VSub(Collison.UpRight, HitSensor.Position));
+					float D_S = VSize(VSub(Collison.DownRight, HitSensor.Position));
+
+					float Magnifivation_From_OLL_to_U = U_S / OLL;
+					float Magnifivation_From_OLL_to_D = D_S / OLL;
+
+
+
+					///Push_BackPowerを内分したものにかける
+					Collison.DownRight = VAdd(Collison.DownRight, VScale(Push_BackPower, Magnifivation_From_OLL_to_U));
+					Collison.DownLeft = VAdd(Collison.DownLeft, VScale(Push_BackPower, Magnifivation_From_OLL_to_U));
+					Collison.UpLeft = VAdd(Collison.UpLeft, VScale(Push_BackPower, Magnifivation_From_OLL_to_D));
+					Collison.UpRight = VAdd(Collison.UpRight, VScale(Push_BackPower, Magnifivation_From_OLL_to_D));
 
 				}
-				/*if (Object::isCollisonTriangle(VSub(Collison.UpRight, Collison.UpLeft), Apex[0], Apex[1], Apex[2]))
+
+				//右線
+				HitSensor = HitCheck_Line_Triangle(Collison.DownLeft, Collison.UpLeft, Apex[0], Apex[1], Apex[2]);
+				if (HitSensor.HitFlag)
 				{
 					VECTOR Push_BackPower;
-					Push_BackPower = Object::Push_Back_Vector(VSub(Collison.UpRight, Collison.UpLeft), Apex[0], Apex[1], Apex[2]);
-					///当たっている側だけを押し返す
-					Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
-					Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
-					Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
-					Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
-					isChengeBlock = true;
+					Push_BackPower = Object::Push_Back_Vector(HitSensor.Position, Apex[0], Apex[1], Apex[2]);
 
-				}*/
-			
+					//辺の長さを内分
+					float OLL = VSize(VSub(Collison.DownLeft, Collison.UpLeft));
+					float U_S = VSize(VSub(Collison.UpLeft, HitSensor.Position));
+					float D_S = VSize(VSub(Collison.DownLeft, HitSensor.Position));
+
+					float Magnifivation_From_OLL_to_U = U_S / OLL;
+					float Magnifivation_From_OLL_to_D = D_S / OLL;
+
+
+
+					///Push_BackPowerを内分したものにかける
+					Collison.DownRight = VAdd(Collison.DownRight, VScale(Push_BackPower, Magnifivation_From_OLL_to_U));
+					Collison.DownLeft = VAdd(Collison.DownLeft, VScale(Push_BackPower, Magnifivation_From_OLL_to_U));
+					Collison.UpLeft = VAdd(Collison.UpLeft, VScale(Push_BackPower, Magnifivation_From_OLL_to_D));
+					Collison.UpRight = VAdd(Collison.UpRight, VScale(Push_BackPower, Magnifivation_From_OLL_to_D));
+
+				}
 
 			}
 
@@ -231,35 +262,32 @@ void Map::HitCalc(Object& object)
 		
 		
 		/////LR と　Collison.DownRight　の内積／二つのSizeをかけたもの　でCosの値を求める
-		//float Cos_LR = VDot(LR, Collison.DownLeft) / (VSize(LR) * VSize(Collison.DownLeft));
+		float Cos_LR = VDot(LR, Collison.DownLeft) / (VSize(LR) * VSize(Collison.DownLeft));
 		/////ACosで角度を求める
-		//float rag = acos(Cos_LR);
+		float rag = acos(Cos_LR);
 		/////誤差をなくすため小数点代2以下を切り捨て
 		////小数点第一を1の位に持ってくる
-		//rag = rag * 100;
+		rag = rag * 100;
 		/////小数点以下を切り捨て
-		//rag = floorf(rag);
+		rag = floorf(rag);
 		/////元の桁に戻す
-		//rag = rag / 100;
+	   rag = rag / 100;
 		/////出た値をslope(傾き）に代入する
-		//object.SetSlope(VGet(0, -90.f, rag));
+		object.SetSlope(VGet(0, -90.f, rag));
 		////傾きを元に戻す
 		/////DownLeftを軸に角度のない当たり判定を作る
 		
-		/*Collison.DownLeft = Collison.DownLeft;
-		Collison.DownRight =VGet(Collison.DownLeft.x + object.GetWidth(),Collison.DownLeft.y, Collison.DownLeft.z);
-		Collison.UpLeft = VGet(Collison.DownLeft.x, Collison.DownLeft.y+object.GetHeight(), Collison.DownLeft.z);
-		Collison.DownRight = VGet(Collison.DownLeft.x + object.GetWidth(), Collison.DownLeft.y + object.GetHeight(), Collison.DownLeft.z);
-
-		
-		///Collisonを傾ける
-		Object::RotFreeAxis(Collison.DownRight, Collison.DownLeft, MGetRotZ(rag));
-		Object::RotFreeAxis(Collison.UpRight, Collison.DownLeft, MGetRotZ(rag));
-		Object::RotFreeAxis(Collison.UpLeft, Collison.DownLeft, MGetRotZ(rag));*/
+	
 
 
 		
 	}
+	
+	/*	Collison.DownRight = VAdd(Collison.DownLeft, VScale(Object::VectorNorm(VSub(Collison.DownRight, Collison.DownLeft)), object.GetWidth()));
+		Collison.UpLeft = VAdd(Collison.DownLeft, VScale(Object::VectorNorm(VSub(Collison.UpLeft, Collison.DownLeft)), object.GetHeight()));
+		Collison.UpRight = VAdd(Collison.DownLeft, VAdd(VScale(Object::VectorNorm(VSub(Collison.DownRight, Collison.DownLeft)), object.GetWidth()), VScale(Object::VectorNorm(VSub(Collison.UpLeft, Collison.DownLeft)), object.GetHeight())));
+	*/
+
 	
 	///オブジェクトの方に代入
 	object.SetHitBlock(Collison);

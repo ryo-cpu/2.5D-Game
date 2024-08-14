@@ -40,25 +40,26 @@ void Player::Update()
 {
 	// キー入力取得
 	int Key = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-
+	HitBlock Collison = this->GetCollison();
 	// 単純に方向転換
 	dir = VGet(0, 0, 0);
 	if (Key & PAD_INPUT_UP)
 	{
-		dir = VAdd(dir, VGet(0, 1, 0));
+		dir = VAdd(dir,Object::VectorNorm(VSub(Collison.UpRight,Collison.DownRight)));
 	}
 	
 	if (Key & PAD_INPUT_RIGHT)
 	{
-		dir = VAdd(dir, VGet(1, 0, 0));
+		dir = VAdd(dir, Object::VectorNorm(VSub(Collison.UpLeft, Collison.UpRight)));
+		
 	}
 	else if (Key & PAD_INPUT_LEFT)
 	{
-		dir = VAdd(dir, VGet(-1, 0, 0));
+		dir = VAdd(dir, Object::VectorNorm(VSub(Collison.UpRight, Collison.UpLeft)));
 	}
 	if (Key & PAD_INPUT_DOWN)
 	{
-		dir = VAdd(dir, VGet(0, -1, 0));
+		dir = VAdd(dir, Object::VectorNorm(VSub(Collison.DownRight, Collison.UpRight)));
 	}
 	// ゼロ除算避け
 	if (VSquareSize(dir) > 0)
