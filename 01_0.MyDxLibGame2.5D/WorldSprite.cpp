@@ -72,6 +72,11 @@ void WorldSprite::SetApex(const VECTOR& pos, int ChipData, float chipSize)
 {
     switch (ChipData)
     {
+    case 1:
+        Apex[0] = VScale(VGet(-1.0f, 1.0f, 0.0f), chipSize * 0.5f);
+        Apex[1] = VScale(VGet(1.0f, -1.0f, 0.0f), chipSize * 0.5f);
+        Apex[2] = VScale(VGet(-1.0f, -1.0f, 0.0f), chipSize * 0.5f);
+        break;
     default:
         Apex[0]= VScale(VGet(1.0f, 1.0f, 0.0f), chipSize * 0.5f);
         Apex[1] = VScale(VGet(1.0f, -1.0f, 0.0f), chipSize * 0.5f);
