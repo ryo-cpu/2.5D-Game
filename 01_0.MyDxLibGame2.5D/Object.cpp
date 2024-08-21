@@ -3,7 +3,7 @@
 // 静的定数
 // 速度（1=1m、60fps固定として、時速10km）
 // 10000m ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
-
+const float Object::Scale = 0.002f;
 
 VECTOR Object::VectorNorm(VECTOR& V1)
 {

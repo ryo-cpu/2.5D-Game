@@ -10,6 +10,7 @@
 // 10000m ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
 const float Player::Speed = static_cast<float>(10000.0 / 60.0 / 60.0 / 60.0);
 const float Player::Scale = 0.002f;		// スケール
+const VECTOR G=VGet(0,-0.5f,0);
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -61,6 +62,8 @@ void Player::Update()
 	{
 		dir = VAdd(dir, Object::VectorNorm(VSub(Collison.DownRight, Collison.UpRight)));
 	}
+	///重力追加
+	dir = VAdd(dir, G);
 	// ゼロ除算避け
 	if (VSquareSize(dir) > 0)
 	{

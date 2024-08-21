@@ -1,2 +1,15 @@
-﻿  WorldSprite.cpp
-  MyDxLibGame3D.vcxproj -> C:\Users\諒\OneDrive\デスクトップ\2.5 26日\01_0.MyDxLibGame2.5D\Debug\MyDxLibGame3D.exe
+﻿  Camera.cpp
+  Map.cpp
+C:\Users\student\Desktop\２４８２１\01_0.MyDxLibGame2.5D\Map.cpp(30,5): warning C4156: 'delete' の配列でない形式を使った配列の削除は、定義されていません。
+C:\Users\student\Desktop\２４８２１\01_0.MyDxLibGame2.5D\Map.cpp(30,5): warning C4154: 配列の delete が定義されていません。配列は、ポインターに変換されます。
+C:\Users\student\Desktop\２４８２１\01_0.MyDxLibGame2.5D\Map.cpp(254,13): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\２４８２１\01_0.MyDxLibGame2.5D\Map.cpp(272,89): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\２４８２１\01_0.MyDxLibGame2.5D\Map.cpp(273,91): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  Object.cpp
+C:\Users\student\Desktop\２４８２１\01_0.MyDxLibGame2.5D\Object.cpp(117,74): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+C:\Users\student\Desktop\２４８２１\01_0.MyDxLibGame2.5D\Object.cpp(118,74): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+C:\Users\student\Desktop\２４８２１\01_0.MyDxLibGame2.5D\Object.cpp(119,74): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+  Player.cpp
+  main.cpp
+  コードを生成中...
+  MyDxLibGame3D.vcxproj -> C:\Users\student\Desktop\２４８２１\01_0.MyDxLibGame2.5D\Debug\MyDxLibGame3D.exe

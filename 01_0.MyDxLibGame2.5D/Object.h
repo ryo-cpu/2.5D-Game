@@ -31,6 +31,7 @@ public:
 	void Initialization_HitBlock();
 	void SetDir(const VECTOR& Dir);
 	void SetSlope(const VECTOR& Slope);
+	float GetScale()const { return Scale; }
 	
 
 	///Žg‚¤“¹‹ï
@@ -68,7 +69,7 @@ protected:
 	float width;
 	float height;
 	float Depth;
-
+	static const float Scale;
 	
 };
 
