@@ -23,7 +23,7 @@ public:
 	const VECTOR& GetVelocity() const { return velocity; }
 	const VECTOR& GetSlope()const { return slope; }
 	const HitBlock& GetCollison()const { return Collison; }
-	const float& GetWidth()const { return width;}
+	const float& GetWidth()const { return width*Scale;}
 	const float& GetHeight()const { return height; }
 	const float& GetDepth()const { return Depth; }
 	void SetHitBlock(const HitBlock& HitBlock);

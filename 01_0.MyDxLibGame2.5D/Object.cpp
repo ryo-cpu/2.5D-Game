@@ -112,11 +112,11 @@ VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VE
     Check_to_2.z = 0;
     Check_to_3.z = 0;
 
-    //一回り大きい三角形へのベクトルにする　押し返しきれないから
-    //float型の正の最小値
-    Check_to_1 = VAdd(Check_to_1, VScale(Object::VectorNorm(Check_to_1), 0.0000001));
-    Check_to_2 = VAdd(Check_to_2, VScale(Object::VectorNorm(Check_to_2), 0.0000001));
-    Check_to_3 = VAdd(Check_to_3, VScale(Object::VectorNorm(Check_to_3), 0.0000001));
+    ////一回り大きい三角形へのベクトルにする　押し返しきれないから
+    ////float型の正の最小値
+    //Check_to_1 = VAdd(Check_to_1, VScale(Object::VectorNorm(Check_to_1), 0.000001));
+    //Check_to_2 = VAdd(Check_to_2, VScale(Object::VectorNorm(Check_to_2), 0.000001));
+    //Check_to_3 = VAdd(Check_to_3, VScale(Object::VectorNorm(Check_to_3), 0.000001));
 
 
     //辺のベクトルを求める
@@ -129,7 +129,11 @@ VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VE
     VECTOR Pos_Intersect_Around1_3 = PositiveProjectionVector(Around_1_3, Check_to_1);
     VECTOR Pos_Intersect_Around3_2 = PositiveProjectionVector(Around_3_2, Check_to_3);
 
-    //辺からposへの垂線の交点へのベクトルを求める
+  ///相対的なPos_Intersect_Aroundと絶対的なPosの位置を比較するためPosを加算する
+    Pos_Intersect_Around1_2 = VAdd(Pos_Intersect_Around1_2,ChekPoint);
+    Pos_Intersect_Around1_3 = VAdd(Pos_Intersect_Around1_3, ChekPoint);
+    Pos_Intersect_Around3_2 = VAdd(Pos_Intersect_Around3_2, ChekPoint);
+  //辺からposへの垂線の交点へのベクトルを求める
     VECTOR  Pos_to_Around1_2 = VSub(Pos_Intersect_Around1_2,ChekPoint);
     VECTOR  Pos_to_Around1_3 = VSub(Pos_Intersect_Around1_3,ChekPoint);
     VECTOR  Pos_to_Around3_2 = VSub(Pos_Intersect_Around3_2,ChekPoint);

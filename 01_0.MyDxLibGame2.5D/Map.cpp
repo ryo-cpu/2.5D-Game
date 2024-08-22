@@ -132,7 +132,9 @@ void Map::HitCalc(Object& object)
 					Collison.UpRight = VAdd(Collison.UpRight,VScale( Push_BackPower,Magnifivation_From_OLL_to_L));
 					Collison.DownLeft = VAdd(Collison.DownLeft,VScale(Push_BackPower,Magnifivation_From_OLL_to_R));
 					Collison.UpLeft = VAdd(Collison.UpLeft,VScale( Push_BackPower,Magnifivation_From_OLL_to_R));
-				
+					
+					
+					
 				}
 				else
 				{
@@ -268,10 +270,7 @@ void Map::HitCalc(Object& object)
 
 		
 	}
-	////下辺から上辺を作成
-	//Collison.UpLeft = Object::RotFreeAxis(VScale(Object::VectorNorm(LR), object.GetHeight()*0.002), Collison.DownLeft, MGetRotZ(DX_PI_F/2));
-	//Collison.UpRight = Object::RotFreeAxis(VScale(Object::VectorNorm(LR), object.GetHeight() * 0.002), Collison.DownRight, MGetRotZ(-DX_PI_F / 2));
-		
+	
 
 	
 	///オブジェクトの方に代入
