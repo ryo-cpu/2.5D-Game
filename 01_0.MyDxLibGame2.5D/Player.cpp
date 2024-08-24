@@ -63,7 +63,7 @@ void Player::Update()
 		dir = VAdd(dir, Object::VectorNorm(VSub(Collison.DownRight, Collison.UpRight)));
 	}
 	///重力追加
-	/*dir = VAdd(dir, G);*/
+	dir = VAdd(dir, G);
 	// ゼロ除算避け
 	if (VSquareSize(dir) > 0)
 	{

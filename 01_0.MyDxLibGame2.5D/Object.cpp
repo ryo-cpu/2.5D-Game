@@ -213,19 +213,10 @@ void Object::SetSlope(const VECTOR& Slope)
 
 VECTOR Object::RotFreeAxis(VECTOR& V1,const VECTOR& Axis,const MATRIX& Power)
 {
-    ///Axisを原点とするベクトルから通常のベクトルへ
-    MATRIX Axis_to_Origin = MGetAxis1(VGet(1, 0, 0), VGet(0, 1, 0), VGet(0, 0, 1), Axis);
-    ///通常のベクトルからAxisを原点とするベクトルへ
-    MATRIX Origin_to_Axis = MGetAxis2(VGet(1, 0, 0), VGet(0, 1, 0), VGet(0, 0, 1), Axis);
-    //////Axisを原点とするベクトルから通常のベクトルへ
-    V1 = VTransform(V1, Origin_to_Axis);
-    ///Powerを加える
-    V1 = VTransform(V1, Power);
-    ///通常のベクトルからAxisを原点とするベクトルへ
-    V1 = VTransform(V1, Axis_to_Origin);
-
+    V1 = VSub(V1,Axis);
+    V1 = VTransform(V1,Power);
+    V1 = VAdd(V1,Axis);
     return V1;
-
 }
 
 

@@ -133,7 +133,7 @@ void Map::HitCalc(Object& object)
 					Collison.DownLeft = VAdd(Collison.DownLeft,VScale(Push_BackPower,Magnifivation_From_OLL_to_R));
 					Collison.UpLeft = VAdd(Collison.UpLeft,VScale( Push_BackPower,Magnifivation_From_OLL_to_R));
 					
-					
+				
 					
 				}
 				else
@@ -244,7 +244,7 @@ void Map::HitCalc(Object& object)
 
 	}
 	///下辺を表すベクトル LR
-	VECTOR LR = VSub(Collison.DownRight, Collison.DownLeft);
+	VECTOR LR = VSub(Collison.DownLeft, Collison.DownRight);
 	if (isChengeBlock)
 	{
 		///下の辺の高低差を求める
@@ -270,8 +270,9 @@ void Map::HitCalc(Object& object)
 
 		
 	}
-	
 
+	
+	
 	
 	///オブジェクトの方に代入
 	object.SetHitBlock(Collison);
