@@ -240,12 +240,11 @@ void Map::HitCalc(Object& object)
 		
 		
 		////右上
-		Collison.UpRight = Object::RotFreeAxis(Collison.DownRight, Collison.DownRight,MMult(MGetTranslate(VGet(0, object.GetHeight(), 0)),MGetRotZ(rag/2)
-			));
-
+		Collison.UpRight = VAdd(Collison.DownRight, VGet(0, object.GetHeight(), 0));
+		Collison.UpRight = Object::RotFreeAxis(Collison.UpRight,Collison.DownRight,MGetRotZ(rag/2));
 		////左上
-		Collison.UpRight = Object::RotFreeAxis(Collison.DownLeft, Collison.DownLeft, MMult(MGetRotZ(rag / 2),
-			MGetTranslate(VGet(0, object.GetHeight(), 0))));
+		Collison.UpLeft = VAdd(Collison.DownLeft, VGet(0, object.GetHeight(), 0));
+		Collison.UpLeft = Object::RotFreeAxis(Collison.UpLeft, Collison.DownLeft, MGetRotZ(rag / 2));
 
 
 		
