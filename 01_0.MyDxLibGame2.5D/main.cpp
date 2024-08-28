@@ -72,7 +72,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				DrawLine3D(VGet(-lineSize, y, 0), VGet(lineSize, y, 0), GetColor(255, 255, 0));
 			}
 		}
+		VECTOR tnp = player->GetSlope();
 
+		DrawFormatString(100, 200, GetColor(100, 255, 0), "rag%f", tnp.z);
 		// 裏画面の内容を表画面に反映させる
 		ScreenFlip();
 

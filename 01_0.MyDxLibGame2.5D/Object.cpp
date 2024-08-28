@@ -114,9 +114,9 @@ VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VE
 
     ////一回り大きい三角形へのベクトルにする　押し返しきれないから
     ////float型の正の最小値
-    //Check_to_1 = VAdd(Check_to_1, VScale(Object::VectorNorm(Check_to_1), 0.000001));
-    //Check_to_2 = VAdd(Check_to_2, VScale(Object::VectorNorm(Check_to_2), 0.000001));
-    //Check_to_3 = VAdd(Check_to_3, VScale(Object::VectorNorm(Check_to_3), 0.000001));
+    /*Check_to_1 = VAdd(Check_to_1, VScale(Object::VectorNorm(Check_to_1), 0.000001));
+    Check_to_2 = VAdd(Check_to_2, VScale(Object::VectorNorm(Check_to_2), 0.000001));
+    Check_to_3 = VAdd(Check_to_3, VScale(Object::VectorNorm(Check_to_3), 0.000001));*/
 
 
     //辺のベクトルを求める
@@ -182,19 +182,19 @@ bool Object::isEqual_VECTOR(const VECTOR& V1, const VECTOR& V2)
 
 void Object::Initialization_HitBlock()
 {
-    Collison.DownLeft.x = pos.x +width/2;
+    Collison.DownLeft.x = pos.x -width/2;
     Collison.DownLeft.y = pos.y - height/2;
     Collison.DownLeft.z = pos.z;
 
-    Collison.UpLeft.x = pos.x + width/2;
+    Collison.UpLeft.x = pos.x -width/2;
     Collison.UpLeft.y = pos.y + height/2;
     Collison.UpLeft.z = pos.z; 
 
-    Collison.DownRight.x = pos.x - width/2;
+    Collison.DownRight.x = pos.x + width/2;
     Collison.DownRight.y = pos.y - height/2;
     Collison.DownRight.z = pos.z;
 
-    Collison.UpRight.x = pos.x - width/2;
+    Collison.UpRight.x = pos.x+ width/2;
     Collison.UpRight.y = pos.y + height/2;
     Collison.UpRight.z = pos.z;
   
@@ -230,7 +230,7 @@ void Object::FixPos()
 
 }
 
-void Object::FixHitBlock()
+void Object::MoveHitBlock()
 {
     Collison.DownLeft = VAdd(Collison.DownLeft, velocity);
     Collison.DownRight = VAdd(Collison.DownRight, velocity);

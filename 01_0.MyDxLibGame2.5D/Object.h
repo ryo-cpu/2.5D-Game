@@ -58,7 +58,7 @@ public:
 	/// <summary>
 	/// posからHitBlockを逆算する
 	/// </summary>
-	void FixHitBlock();
+	void MoveHitBlock();
 protected:
 	int		modelHandle;	// モデルハンドル.
 	VECTOR	pos;			// ポジション.

@@ -48,22 +48,24 @@ void Player::Update()
 	{
 		dir = VAdd(dir,Object::VectorNorm(VSub(Collison.UpRight,Collison.DownRight)));
 	}
-	
-	if (Key & PAD_INPUT_RIGHT)
-	{
-		dir = VAdd(dir, Object::VectorNorm(VSub(Collison.UpLeft, Collison.UpRight)));
-		
-	}
-	else if (Key & PAD_INPUT_LEFT)
-	{
-		dir = VAdd(dir, Object::VectorNorm(VSub(Collison.UpRight, Collison.UpLeft)));
-	}
-	if (Key & PAD_INPUT_DOWN)
+	else if (Key & PAD_INPUT_DOWN)
 	{
 		dir = VAdd(dir, Object::VectorNorm(VSub(Collison.DownRight, Collison.UpRight)));
 	}
+	
+	if (Key & PAD_INPUT_RIGHT)
+	{
+		
+		dir = VAdd(dir, Object::VectorNorm(VSub(Collison.UpRight, Collison.UpLeft)));
+	}
+	
+	else if (Key & PAD_INPUT_LEFT)
+	{
+		dir = VAdd(dir, Object::VectorNorm(VSub(Collison.UpLeft, Collison.UpRight)));
+	}
+	
 	///重力追加
-	dir = VAdd(dir, G);
+	//dir = VAdd(dir, G);
 	// ゼロ除算避け
 	if (VSquareSize(dir) > 0)
 	{
@@ -73,8 +75,9 @@ void Player::Update()
 
 	// ポジションを更新.
 	velocity = VScale(dir, Speed);
+
 	pos = VAdd(pos, velocity);
-	FixHitBlock();
+	MoveHitBlock();
 	// 力をかけ終わったベロシティの方向にディレクションを調整.
 	if (VSize(velocity) != 0)
 	{
