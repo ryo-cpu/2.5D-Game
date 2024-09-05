@@ -27,8 +27,9 @@ public:
 
 private:
 	// マップチップの画像表示をするためのクラス
-	std::vector<WorldSprite*> S;
+	
 	WorldSprite* sprite[ MapChipNumY][ MapChipNumX];
+
 	int MapData[ MapChipNumY][ MapChipNumX]{
 		{1,65,1,1,1,1,1,1,1,1},
 		{1,15,15,15,15,15,15,15,15,1},

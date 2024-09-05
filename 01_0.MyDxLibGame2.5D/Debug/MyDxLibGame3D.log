@@ -1,4 +1,2 @@
-﻿  Map.cpp
-C:\Users\諒\OneDrive\デスクトップ\2.5Dゲーム\01_0.MyDxLibGame2.5D\Map.cpp(30,5): warning C4156: 'delete' の配列でない形式を使った配列の削除は、定義されていません。
-C:\Users\諒\OneDrive\デスクトップ\2.5Dゲーム\01_0.MyDxLibGame2.5D\Map.cpp(30,5): warning C4154: 配列の delete が定義されていません。配列は、ポインターに変換されます。
-  MyDxLibGame3D.vcxproj -> C:\Users\諒\OneDrive\デスクトップ\2.5Dゲーム\01_0.MyDxLibGame2.5D\Debug\MyDxLibGame3D.exe
+﻿  Object.cpp
+  MyDxLibGame3D.vcxproj -> C:\Users\student\Desktop\qqqqq\01_0.MyDxLibGame2.5D\Debug\MyDxLibGame3D.exe

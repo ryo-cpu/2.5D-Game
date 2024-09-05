@@ -144,10 +144,19 @@ VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VE
     {
         if (VSize(Pos_to_Around1_2) <= VSize(Pos_to_Around3_2))
         {
+            if (VSize(Pos_to_Around1_2) == 0)
+            {
+                VAdd(Pos_to_Around1_2, VGet(0, 1, 0));
+            }
             return Pos_to_Around1_2;
+
         }
         else
         {
+            if (VSize(Pos_to_Around3_2) == 0)
+            {
+                VAdd(Pos_to_Around3_2, VGet(0, 1, 0));
+            }
             return  Pos_to_Around3_2;
         }
     }
@@ -155,10 +164,18 @@ VECTOR Object::Push_Back_Vector(VECTOR& ChekPoint, const VECTOR& Apex1, const VE
     {
         if (VSize(Pos_to_Around1_3) <= VSize(Pos_to_Around3_2))
         {
+            if (VSize(Pos_to_Around1_3) == 0)
+            {
+                VAdd(Pos_to_Around1_3, VGet(0, 1, 0));
+            }
             return Pos_to_Around1_3;
         }
         else
         {
+            if (VSize(Pos_to_Around3_2) == 0)
+            {
+                VAdd(Pos_to_Around3_2, VGet(0, 1, 0));
+            }
             return  Pos_to_Around3_2;
         }
     }

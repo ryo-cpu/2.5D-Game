@@ -227,24 +227,26 @@ void Map::HitCalc(Object& object)
 		/////誤差をなくすため小数点代2以下を切り捨て
 		////小数点第一を1の位に持ってくる
 		rag = rag * 100;
-		/////小数点以下を切り捨て
-		rag = floorf(rag);
+		/////小数点以下を切り上げて
+		rag = ceilf(rag+1);
 		/////元の桁に戻す
 	   rag = rag / 100;
 		/////出た値をslope(傾き）に代入する
-		object.SetSlope(VGet(0, -1.f, rag));
+		object.SetSlope(VGet(0, -1.f, rag/2));
 		////傾きを元に戻す
 	
 	///傾ける値から回転力を追加する
-
-		
-		
-		////右上
+		///右下
+		Collison.DownRight = VAdd(Collison.DownLeft, VGet(object.GetWidth(), 0, 0));
+		Collison.DownRight = Object::RotFreeAxis(Collison.DownRight, Collison.DownLeft, MGetRotZ(rag / 2));
+        ////右上
 		Collison.UpRight = VAdd(Collison.DownRight, VGet(0, object.GetHeight(), 0));
 		Collison.UpRight = Object::RotFreeAxis(Collison.UpRight,Collison.DownRight,MGetRotZ(rag/2));
 		////左上
 		Collison.UpLeft = VAdd(Collison.DownLeft, VGet(0, object.GetHeight(), 0));
 		Collison.UpLeft = Object::RotFreeAxis(Collison.UpLeft, Collison.DownLeft, MGetRotZ(rag / 2));
+
+		
 
 
 		
@@ -266,7 +268,7 @@ void Map::HitCalc(Object& object)
 				///sprite[x][y]の頂点を取得
 				const VECTOR* Apex = sprite[y][x]->GetApex();
 				///線の判定
-				DownHitSensor = HitCheck_Line_Triangle(Collison.DownLeft, Collison.DownRight, Apex[0], Apex[1], Apex[2]);
+				DownHitSensor = HitCheck_Line_Triangle(Collison.DownRight, Collison.DownLeft, Apex[0], Apex[1], Apex[2]);
 				RightHitSensor = HitCheck_Line_Triangle(Collison.UpRight, Collison.DownRight, Apex[0], Apex[1], Apex[2]);
 				UpHitSensor = HitCheck_Line_Triangle(Collison.UpLeft, Collison.UpRight, Apex[0], Apex[1], Apex[2]);
 				LeftHitSensor = HitCheck_Line_Triangle(Collison.UpLeft, Collison.DownLeft, Apex[0], Apex[1], Apex[2]);
