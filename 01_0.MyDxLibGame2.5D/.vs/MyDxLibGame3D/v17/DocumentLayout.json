@@ -3,23 +3,19 @@
   "WorkspaceRootPath": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files (x86)\\Windows Kits\\10\\Source\\10.0.22000.0\\ucrt\\heap\\debug_heap.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Object.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|solutionrelative:Object.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|solutionrelative:Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|solutionrelative:Map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|solutionrelative:Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\student\\Desktop\\probex3-1\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -44,6 +40,13 @@
     {
       "AbsoluteMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\WorldSprite.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|solutionrelative:WorldSprite.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files (x86)\\Windows Kits\\10\\Source\\10.0.22000.0\\ucrt\\heap\\debug_heap.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Object.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}|MyDxLibGame3D.vcxproj|solutionrelative:Object.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -53,17 +56,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Map.cpp",
               "DocumentMoniker": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Map.cpp",
               "RelativeDocumentMoniker": "Map.cpp",
               "ToolTip": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Map.cpp",
               "RelativeToolTip": "Map.cpp",
-              "ViewState": "AQIAAN8AAAAAAAAAAAAgwOYAAAATAAAA",
+              "ViewState": "AQIAAKAAAAAAAAAAAAAgwOMAAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-06-26T06:27:11.472Z",
               "IsPinned": true,
@@ -71,7 +74,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
@@ -85,13 +88,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Map.h",
               "DocumentMoniker": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Map.h",
               "RelativeDocumentMoniker": "Map.h",
               "ToolTip": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Map.h",
               "RelativeToolTip": "Map.h",
-              "ViewState": "AQIAABgAAAAAAAAAAAAAABYAAAAAAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAACAAAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-06-26T06:34:34.667Z",
               "IsPinned": true,
@@ -99,7 +102,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 11,
               "Title": "Object.cpp",
               "DocumentMoniker": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Object.cpp",
               "RelativeDocumentMoniker": "Object.cpp",
@@ -108,25 +111,34 @@
               "ViewState": "AQIAAJEAAAAAAAAAAAAQwKgAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-07-11T05:12:53.677Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\student\\Desktop\\probex3-1\\main.cpp",
+              "RelativeDocumentMoniker": "..\\..\\probex3-1\\main.cpp",
+              "ToolTip": "C:\\Users\\student\\Desktop\\probex3-1\\main.cpp",
+              "RelativeToolTip": "..\\..\\probex3-1\\main.cpp",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-07T08:06:10.676Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "debug_heap.cpp",
               "DocumentMoniker": "C:\\Program Files (x86)\\Windows Kits\\10\\Source\\10.0.22000.0\\ucrt\\heap\\debug_heap.cpp",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files (x86)\\Windows Kits\\10\\Source\\10.0.22000.0\\ucrt\\heap\\debug_heap.cpp",
               "ToolTip": "C:\\Program Files (x86)\\Windows Kits\\10\\Source\\10.0.22000.0\\ucrt\\heap\\debug_heap.cpp",
               "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files (x86)\\Windows Kits\\10\\Source\\10.0.22000.0\\ucrt\\heap\\debug_heap.cpp",
-              "ViewState": "AQIAAG8FAAAAAAAAAAAawH4FAAAAAAAA",
+              "ViewState": "AQIAAGwFAAAAAAAAAAAawH4FAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-08-22T08:51:57.372Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-22T08:51:57.372Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 9,
               "Title": "WorldSprite.h",
               "DocumentMoniker": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\WorldSprite.h",
               "RelativeDocumentMoniker": "WorldSprite.h",
@@ -134,12 +146,11 @@
               "RelativeToolTip": "WorldSprite.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-07-18T05:06:16.023Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-18T05:06:16.023Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "Object.h",
               "DocumentMoniker": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Object.h",
               "RelativeDocumentMoniker": "Object.h",
@@ -147,12 +158,11 @@
               "RelativeToolTip": "Object.h",
               "ViewState": "AQIAAAoAAAAAAAAAAAAewA8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-07-11T04:41:23.789Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T04:41:23.789Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "Player.h",
               "DocumentMoniker": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Player.h",
               "RelativeDocumentMoniker": "Player.h",
@@ -160,12 +170,11 @@
               "RelativeToolTip": "Player.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-07-03T06:43:32.648Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-03T06:43:32.648Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "WorldSprite.cpp",
               "DocumentMoniker": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\WorldSprite.cpp",
               "RelativeDocumentMoniker": "WorldSprite.cpp",
@@ -173,12 +182,11 @@
               "RelativeToolTip": "WorldSprite.cpp",
               "ViewState": "AQIAADkAAAAAAAAAAAAAADoAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-06-26T06:29:35.545Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-26T06:29:35.545Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "Player.cpp",
               "DocumentMoniker": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Player.cpp",
               "RelativeDocumentMoniker": "Player.cpp",
@@ -186,12 +194,11 @@
               "RelativeToolTip": "Player.cpp",
               "ViewState": "AQIAACkAAAAAAAAAAADwv0QAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-06-26T06:28:02.681Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-26T06:28:02.681Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "Camera.cpp",
               "DocumentMoniker": "C:\\Users\\student\\Desktop\\qqqqq\\01_0.MyDxLibGame2.5D\\Camera.cpp",
               "RelativeDocumentMoniker": "Camera.cpp",
@@ -199,8 +206,7 @@
               "RelativeToolTip": "Camera.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-06-26T06:27:15.806Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-26T06:27:15.806Z"
             }
           ]
         }

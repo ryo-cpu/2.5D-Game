@@ -29,6 +29,8 @@ private:
 	// マップチップの画像表示をするためのクラス
 	
 	WorldSprite* sprite[ MapChipNumY][ MapChipNumX];
+	int **OtiginMap;
+	int y, x;
 
 	int MapData[ MapChipNumY][ MapChipNumX]{
 		{1,65,1,1,1,1,1,1,1,1},
