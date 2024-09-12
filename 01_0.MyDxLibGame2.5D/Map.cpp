@@ -1,4 +1,4 @@
-﻿// 2023 Takeru Yui All Rights Reserved.
+﻿// 2023 Takeru MapChipNumYui All Rights Reserved.
 #include<vector>
 #include"Object.h"
 #include "Map.h"
@@ -6,21 +6,21 @@
 #include "WorldSprite.h"
 
 const float Map::ChipSize = 0.725f;
-const int Map::ChipPixelSize = 32;
-#define MAX_LINE_LENGTH 1024
-#define MAX_FIELDS 10
-/// <summary>
+const int Map::ChipPiMapChipNumXelSize = 32;
+#define MAMapChipNumX_LINE_LENGTH 1024
+#define MAMapChipNumX_FIELDS 10
+/// <summarMapChipNumY>
 /// コンストラクタ
-/// </summary>
+/// </summarMapChipNumY>
 Map::Map()
 	: sprite{ (nullptr) }
 {
 	
 }
 
-/// <summary>
+/// <summarMapChipNumY>
 /// デストラクタ
-/// </summary>
+/// </summarMapChipNumY>
 Map::~Map()
 {
 	for (int i = 0; i < MapChipNumY; i++)
@@ -34,21 +34,22 @@ Map::~Map()
 		}
 	}
 }
-/// <summary>
+/// <summarMapChipNumY>
 /// mapデータをCSVファイルから持ってくる
-/// </summary>
+/// </summarMapChipNumY>
 void Map::DownLoad()
 {
 
 	OriginMap = NULL;
-	x = 0;
-	y = 0;
+	MapChipNumX = 0;
+	MapChipNumY = 0;
 	///FILEのポインタ(ファイルのさしている位置を出す）
 	FILE* fp;
 	errno_t err;
 
 	///ファイルを開く
-	err = fopen_s(&fp, "", "rt");
+	a
+	err = fopen_s(&fp, "./MapTiles/MapData", "rt");
     //読み込みエラー
 	if (err)
 	{
@@ -57,23 +58,25 @@ void Map::DownLoad()
 	}
 
 	///最初の行を読み
-	char buff[MAX_LINE_LENGTH];
-	fgets(buff, MAX_LINE_LENGTH, fp);
+	char buff[MAMapChipNumX_LINE_LENGTH];
+	fgets(buff, MAMapChipNumX_LINE_LENGTH, fp);
 	///カンマを数える
 	char c;
+	c = fgetc(fp);
+
 	while (c != '\n' && c != EOF)
 	{
    // 読み取った文字がカンマなら1つカウント増やす
-		    c = fgetc(fp);
+    c = fgetc(fp);
 		    
 	if (c == ',')
 	{
-	        x++;
+	        MapChipNumX++;
 	 }
      }
 
 	///カンマの数を1行の大きさとする
-	int bufferLen = x * 6 + 1;
+	int bufferLen = MapChipNumX * 6 + 1;
 	///1行のデータとしての大きさを出す
 	char* buf = new char[bufferLen];
 	char* ptmp = buf;
@@ -84,14 +87,18 @@ void Map::DownLoad()
 	bool firstRow = true;
 	while (fgets(buf, bufferLen - 1, fp) != NULL)
 	{
-		y++;
+		MapChipNumY++;
 	}
 	///出た大きさを動的確保する
-	OriginMap = new int* [y];
+	OriginMap = new int* [MapChipNumY];
+	//WorldSptiteのポインタをいれる配列の先頭ポインタMapChipNumY個
+	sprite = new WorldSprite ** [MapChipNumY];
 	
-	for ( int iy = 0; iy < y; iy++)
+	for ( int iMapChipNumY = 0; iMapChipNumY < MapChipNumY; iMapChipNumY++)
 	{
-		OriginMap[iy] = new int[x];
+		OriginMap[iMapChipNumY] = new int[MapChipNumX];
+		///sprite[iMapChipNumY]にWorldSptiteのポインタをいれるをMapChipNumX個
+		sprite[iMapChipNumY] = new WorldSprite*[MapChipNumX];
 	}
 	///ファイルポインタを先頭に戻す
 	fseek(fp, 0, SEEK_SET);
@@ -99,12 +106,12 @@ void Map::DownLoad()
 	///ファイルのデータを移す
 	char* readPoint;
 	char* firstPoint;
-	for (int iy = 0; iy < y; iy++)
+	for (int iMapChipNumY = 0; iMapChipNumY < MapChipNumY; iMapChipNumY++)
 	{
 		// 1行取り込み
 		fgets(buf, bufferLen - 1, fp);
 		readPoint = firstPoint = buf;
-		for (int ix = 0; ix < x; ix++)
+		for (int iMapChipNumX = 0; iMapChipNumX < MapChipNumX; iMapChipNumX++)
 		{
 			//カンマまでreadPointの位置を進める
 			while (',' != *readPoint && '\n' != *readPoint)
@@ -114,7 +121,7 @@ void Map::DownLoad()
 			// カンマをNULL文字に置き換え
 			*readPoint = '\0';
 			//この時点でfirstPoint - readPoint間で文字列が完成するので数値に変換
-			OriginMap[iy][ix] = atoi(firstPoint);
+			OriginMap[iMapChipNumY][iMapChipNumX] = atoi(firstPoint);
 			//次のデータ読み取り位置まで進める
 			readPoint++;
 			firstPoint = readPoint;
@@ -129,11 +136,12 @@ void Map::DownLoad()
 
 }
 
-/// <summary>
+/// <summarMapChipNumY>
 /// ロード
-/// </summary>
+/// </summarMapChipNumY>
 void Map::Load()
 {
+	MapData = OriginMap;
 	// とりあえずマップロード
 	int chipGraph = LoadGraph("data/map.png");
 	
@@ -143,12 +151,12 @@ void Map::Load()
 	// 元画像のハンドル、１チップあたりのサイズ、表示するマップチップ番号を渡す
 	for (int i = 0; i <  MapChipNumY; i++)
 	{
-		for (int j = 0; j <  MapChipNumX; j++)
+		for (int j = 0; j <MapChipNumX; j++)
 		{
 
 
 			sprite[i][j] = new WorldSprite();
-			sprite[i][j]->Initialize(chipGraph, ChipPixelSize, MapData[i][j]);
+			sprite[i][j]->Initialize(chipGraph, ChipPiMapChipNumXelSize, MapData[i][j]);
 		
 			// マップチップの位置と大きさを設定
 			VECTOR chipHalfOffset = VGet(-Map::ChipSize * 0.5f, -Map::ChipSize * 0.5f, 0);					// マップチップの半分サイズ左下にずらすオフセット
@@ -160,22 +168,22 @@ void Map::Load()
 	}
 }
 
-/// <summary>
+/// <summarMapChipNumY>
 /// 更新
-/// </summary>
+/// </summarMapChipNumY>
 void Map::Update()
 {
 	// 処理なし
 }
 
-/// <summary>
+/// <summarMapChipNumY>
 /// 描画
-/// </summary>
+/// </summarMapChipNumY>
 void Map::Draw()
 {
 	for (int i = 0; i <  MapChipNumY; i++)
 	{
-		for (int j = 0; j <  MapChipNumX; j++)
+		for (int j = 0; j < MapChipNumX; j++)
 		{
 			sprite[i][j]->Draw();
 			const VECTOR* Apex=sprite[i][j]->GetApex();
@@ -197,15 +205,15 @@ void Map::HitCalc(Object& object)
 	HITRESULT_LINE RightHitSensor;
 	HITRESULT_LINE LeftHitSensor;
 
-	for (int y = 0; y < MapChipNumY; y++)
+	for (int Y = 0; MapChipNumY >Y; Y++)
 	{
 
-		for (int x = 0; x < MapChipNumX; x++)
+		for (int X = 0; MapChipNumX > X; X++)
 		{
-			if (MapData[y][x] != -1)
+			if (MapData[Y][X] != -1)
 			{
-				///sprite[x][y]の頂点を取得
-				const VECTOR* Apex = sprite[y][x]->GetApex();
+				///sprite[MapChipNumX][MapChipNumY]の頂点を取得
+				const VECTOR* Apex = sprite[Y][X]->GetApex();
 				
 
 
@@ -350,17 +358,17 @@ void Map::HitCalc(Object& object)
 	
 	///修正された物がめり込んでないか調べる
 	/// ///めり込んでないか調べるためもう一周
-	for (int y = 0; y < MapChipNumY; y++)
+	for (int Y = 0; MapChipNumY < Y; Y++)
 	{
 
-		for (int x = 0; x < MapChipNumX; x++)
+		for (int X = 0; X > MapChipNumX; X++)
 		{
 
 
-			if (MapData[y][x] != -1)
+			if (MapData[Y][X] != -1)
 			{
-				///sprite[x][y]の頂点を取得
-				const VECTOR* Apex = sprite[y][x]->GetApex();
+				///sprite[MapChipNumX][MapChipNumY]の頂点を取得
+				const VECTOR* Apex = sprite[MapChipNumY][MapChipNumX]->GetApex();
 				///線の判定
 				DownHitSensor = HitCheck_Line_Triangle(Collison.DownRight, Collison.DownLeft, Apex[0], Apex[1], Apex[2]);
 				RightHitSensor = HitCheck_Line_Triangle(Collison.UpRight, Collison.DownRight, Apex[0], Apex[1], Apex[2]);

@@ -31,7 +31,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	Camera* camera = new Camera();
 	Player* player = new Player();
 	Map*	map	   = new Map();
-
+	map->DownLoad();
 	// ロード
 	map->Load();
 	
