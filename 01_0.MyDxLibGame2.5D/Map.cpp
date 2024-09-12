@@ -7,7 +7,8 @@
 
 const float Map::ChipSize = 0.725f;
 const int Map::ChipPixelSize = 32;
-
+#define MAX_LINE_LENGTH 1024
+#define MAX_FIELDS 10
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -22,17 +23,110 @@ Map::Map()
 /// </summary>
 Map::~Map()
 {
-	for (int i = 0; i <  MapChipNumY; i++)
+	for (int i = 0; i < MapChipNumY; i++)
 	{
 		if (sprite[i] != nullptr)
 		{
-			
-				delete sprite;
-			
-			
+
+			delete sprite;
+
+
 		}
 	}
+}
+/// <summary>
+/// mapデータをCSVファイルから持ってくる
+/// </summary>
+void Map::DownLoad()
+{
+
+	OriginMap = NULL;
+	x = 0;
+	y = 0;
+	///FILEのポインタ(ファイルのさしている位置を出す）
+	FILE* fp;
+	errno_t err;
+
+	///ファイルを開く
+	err = fopen_s(&fp, "", "rt");
+    //読み込みエラー
+	if (err)
+	{
+		printf("ファイルを開けません");
+
+	}
+
+	///最初の行を読み
+	char buff[MAX_LINE_LENGTH];
+	fgets(buff, MAX_LINE_LENGTH, fp);
+	///カンマを数える
+	char c;
+	while (c != '\n' && c != EOF)
+	{
+   // 読み取った文字がカンマなら1つカウント増やす
+		    c = fgetc(fp);
+		    
+	if (c == ',')
+	{
+	        x++;
+	 }
+     }
+
+	///カンマの数を1行の大きさとする
+	int bufferLen = x * 6 + 1;
+	///1行のデータとしての大きさを出す
+	char* buf = new char[bufferLen];
+	char* ptmp = buf;
+	///ファイルポインタを先頭に戻す
+	fseek(fp, 0, SEEK_SET);
 	
+	///1行分の大きさを利用して列を出す
+	bool firstRow = true;
+	while (fgets(buf, bufferLen - 1, fp) != NULL)
+	{
+		y++;
+	}
+	///出た大きさを動的確保する
+	OriginMap = new int* [y];
+	
+	for ( int iy = 0; iy < y; iy++)
+	{
+		OriginMap[iy] = new int[x];
+	}
+	///ファイルポインタを先頭に戻す
+	fseek(fp, 0, SEEK_SET);
+
+	///ファイルのデータを移す
+	char* readPoint;
+	char* firstPoint;
+	for (int iy = 0; iy < y; iy++)
+	{
+		// 1行取り込み
+		fgets(buf, bufferLen - 1, fp);
+		readPoint = firstPoint = buf;
+		for (int ix = 0; ix < x; ix++)
+		{
+			//カンマまでreadPointの位置を進める
+			while (',' != *readPoint && '\n' != *readPoint)
+			{
+				readPoint++;
+			}
+			// カンマをNULL文字に置き換え
+			*readPoint = '\0';
+			//この時点でfirstPoint - readPoint間で文字列が完成するので数値に変換
+			OriginMap[iy][ix] = atoi(firstPoint);
+			//次のデータ読み取り位置まで進める
+			readPoint++;
+			firstPoint = readPoint;
+		}
+	}
+	///ファイルを閉じる
+	fclose(fp);
+	// バッファ開放
+	delete[] buf;
+
+
+
 }
 
 /// <summary>

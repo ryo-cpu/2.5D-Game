@@ -15,6 +15,7 @@ public:
 	~Map();
 
 	void Load();
+	void DownLoad();
 	void Update();
 	void Draw();
 	void HitCalc(Object&object);
@@ -29,7 +30,7 @@ private:
 	// マップチップの画像表示をするためのクラス
 	
 	WorldSprite* sprite[ MapChipNumY][ MapChipNumX];
-	int **OtiginMap;
+	int **OriginMap;
 	int y, x;
 
 	int MapData[ MapChipNumY][ MapChipNumX]{
