@@ -48,8 +48,8 @@ void Map::DownLoad()
 	errno_t err;
 
 	///ファイルを開く
-	a
-	err = fopen_s(&fp, "./MapTiles/MapData", "rt");
+	
+	err = fopen_s(&fp, "./MapTiles/2.5.csv", "rt");
     //読み込みエラー
 	if (err)
 	{
@@ -143,7 +143,7 @@ void Map::Load()
 {
 	MapData = OriginMap;
 	// とりあえずマップロード
-	int chipGraph = LoadGraph("data/map.png");
+	int chipGraph = LoadGraph("MapTiles/Assets/Map2.5d.png");
 	
 	
 
