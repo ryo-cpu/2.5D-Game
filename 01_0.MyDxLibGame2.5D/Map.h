@@ -15,6 +15,7 @@ public:
 	void Load();
 	void DownLoad();
 	void Update();
+	void Draw(const  VECTOR &Ppos);
 	void Draw();
 	void HitCalc(Object&object);
 	

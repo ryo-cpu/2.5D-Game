@@ -52,7 +52,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		ClearDrawScreen();
 
 		// 描画
-		map->Draw();
+		map->Draw(player->GetPos());
 		player->Draw();
 		// デバッグ描画
 		// XYZ軸

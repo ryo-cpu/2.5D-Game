@@ -176,6 +176,25 @@ void Map::Update()
 	// 処理なし
 }
 
+void Map::Draw(const VECTOR& Ppos)
+{
+	for (int i = 0; i < MapChipNumY; i++)
+	{
+		for (int j = 0; j < MapChipNumX; j++)
+		{
+			VECTOR Mpos = sprite[i][j]->GetPos();
+			if (Mpos.x<Ppos.x + 12 && Mpos.x>Ppos.x - 12)
+			{
+				sprite[i][j]->Draw();
+				const VECTOR* Apex = sprite[i][j]->GetApex();
+				DrawTriangle3D(Apex[0], Apex[1], Apex[2], GetColor(255, 0, 0), TRUE);
+			}
+		}
+		// ゆくゆくはカメラを持ってきて、カメラ範囲以外表示しないように
+
+	}
+}
+
 /// <summarMapChipNumY>
 /// 描画
 /// </summarMapChipNumY>
