@@ -12,3 +12,4 @@ C:\Users\student\Desktop\qqqqq\01_0.MyDxLibGame2.5D\Debug\MyDxLibGame3D.exe
 C:\Users\student\Desktop\20240912\01_0.MyDxLibGame2.5D\Debug\MyDxLibGame3D.exe
 C:\Users\student\Desktop\20240926\01_0.MyDxLibGame2.5D\Debug\MyDxLibGame3D.exe
 C:\Users\student\Desktop\samui\01_0.MyDxLibGame2.5D\Debug\MyDxLibGame3D.exe
+C:\Users\student\Desktop\ラスト\Debug\MyDxLibGame3D.exe

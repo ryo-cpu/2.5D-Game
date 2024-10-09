@@ -276,20 +276,20 @@ void Map::HitCalc(Object& object)
 						Collison.DownLeft = VAdd(Collison.DownLeft, L_Push_BackPower);
 						Collison.UpLeft = VAdd(Collison.UpLeft, L_Push_BackPower);
 					}
-					else if (TouchRight && !TouchLeft)
+					else if (!TouchRight && TouchLeft)
 					{
 						Collison.DownRight = VAdd(Collison.DownRight, R_Push_BackPower);
 						Collison.UpRight = VAdd(Collison.UpRight,R_Push_BackPower);
 						Collison.DownLeft = VAdd(Collison.DownLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1));
-						Collison.UpLeft = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1));
+						Collison.UpLeft = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1 ));
 
 					}
-					else if (!TouchRight && TouchLeft)
+					else if (TouchRight && !TouchLeft)
 					{
 						Collison.DownLeft = VAdd(Collison.DownRight, L_Push_BackPower);
 						Collison.UpLeft = VAdd(Collison.UpRight, L_Push_BackPower);
-						Collison.DownRight = VAdd(Collison.DownLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1));
-						Collison.UpRight = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1));
+						Collison.DownRight = VAdd(Collison.DownLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1 ));
+						Collison.UpRight = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1 ));
 					}
 
 					else if(TouchRight && TouchLeft)
@@ -303,10 +303,10 @@ void Map::HitCalc(Object& object)
 					else
 					{
 						///Push_BackPowerを比でかけたものにかける
-						Collison.DownLeft = VSub(Collison.DownLeft, Push_BackPower);
-						Collison.UpLeft = VSub(Collison.UpLeft, Push_BackPower);
-						Collison.DownRight = VSub(Collison.DownRight, Push_BackPower);
-						Collison.UpRight = VSub(Collison.UpRight, Push_BackPower);
+						Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
+						Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
+						Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
+						Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
 					}
 					isChengeBlock = true;
 				
@@ -324,10 +324,10 @@ void Map::HitCalc(Object& object)
 
 
 
-						Collison.DownLeft = VSub(Collison.DownLeft, Push_BackPower);
-						Collison.UpLeft = VSub(Collison.UpLeft, Push_BackPower);
-						Collison.DownRight = VSub(Collison.DownRight, Push_BackPower);
-						Collison.UpRight = VSub(Collison.UpRight, Push_BackPower);
+						Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
+						Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
+						Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
+						Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
 						break;
 					}
 					///左辺
@@ -341,10 +341,10 @@ void Map::HitCalc(Object& object)
 
 
 
-						Collison.DownLeft = VSub(Collison.DownLeft, Push_BackPower);
-						Collison.UpLeft = VSub(Collison.UpLeft, Push_BackPower);
-						Collison.DownRight = VSub(Collison.DownRight, Push_BackPower);
-						Collison.UpRight = VSub(Collison.UpRight, Push_BackPower);
+						Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
+						Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
+						Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
+						Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
 						break;
 
 					}
@@ -361,10 +361,10 @@ void Map::HitCalc(Object& object)
 
 
 
-						Collison.DownLeft = VSub(Collison.DownLeft, Push_BackPower);
-						Collison.UpLeft = VSub(Collison.UpLeft,Push_BackPower);
-						Collison.DownRight = VSub(Collison.DownRight, Push_BackPower);
-						Collison.UpRight = VSub(Collison.UpRight, Push_BackPower);
+						Collison.DownLeft = VSub(Collison.DownLeft,object.GetVelocity());
+						Collison.UpLeft = VSub(Collison.UpLeft,object.GetVelocity());
+						Collison.DownRight = VSub(Collison.DownRight,object.GetVelocity());
+						Collison.UpRight = VSub(Collison.UpRight,object.GetVelocity());
 
 						break;
 					}
