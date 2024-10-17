@@ -213,6 +213,157 @@ void Map::Draw()
 	}
 }
 
+void Map::PushOnBox(Object& object, int x, int y)
+{
+	HitBlock Collison = object.GetCollison();
+	bool isChengeBlock = false;
+	///一点ずつ当たってるか調べる
+	HITRESULT_LINE DownHitSensor;
+	HITRESULT_LINE UpHitSensor;
+	HITRESULT_LINE RightHitSensor;
+	HITRESULT_LINE LeftHitSensor;
+	if (MapData[y][x] != -1)
+	{
+
+		///sprite[MapChipNumX][MapChipNumY]の頂点を取得
+		const VECTOR* Apex = sprite[y][x]->GetApex();
+		//下線
+		DownHitSensor = HitCheck_Line_Triangle(Collison.DownLeft, Collison.DownRight, Apex[0], Apex[1], Apex[2]);
+		if (DownHitSensor.HitFlag)
+		{
+			VECTOR Push_BackPower;
+			VECTOR R_Push_BackPower;
+			VECTOR L_Push_BackPower;
+
+			bool TouchRight = Object::isCollisonTriangle(Collison.DownRight, Apex[0], Apex[1], Apex[2]);
+			bool TouchLeft = Object::isCollisonTriangle(Collison.DownLeft, Apex[0], Apex[1], Apex[2]);
+
+			Push_BackPower = Object::Push_Back_Vector(DownHitSensor.Position, Apex[0], Apex[1], Apex[2]);
+			R_Push_BackPower = Object::Push_Back_Vector(Collison.DownRight, Apex[0], Apex[1], Apex[2]);
+			L_Push_BackPower = Object::Push_Back_Vector(Collison.DownLeft, Apex[0], Apex[1], Apex[2]);
+
+
+
+			//辺の長さを比
+			float OLL = VSize(VSub(Collison.DownRight, Collison.DownLeft));
+			float L_S = VSize(VSub(Collison.DownLeft, DownHitSensor.Position));
+			float R_S = VSize(VSub(Collison.DownRight, DownHitSensor.Position));
+
+			float Magnifivation_From_OLL_to_L = L_S / OLL;
+			float Magnifivation_From_OLL_to_R = R_S / OLL;
+
+			if (VSize(VSub(Collison.DownRight, DownHitSensor.Position)) == 0)
+			{
+				Collison.DownRight = VAdd(Collison.DownRight, R_Push_BackPower);
+				Collison.UpRight = VAdd(Collison.UpRight, R_Push_BackPower);
+				Collison.DownLeft = VAdd(Collison.DownLeft, R_Push_BackPower);
+				Collison.UpLeft = VAdd(Collison.UpLeft, R_Push_BackPower);
+			}
+			else if (VSize(VSub(Collison.DownLeft, DownHitSensor.Position)) == 0)
+			{
+				Collison.DownRight = VAdd(Collison.DownRight, L_Push_BackPower);
+				1;						Collison.UpRight = VAdd(Collison.UpRight, L_Push_BackPower);
+				Collison.DownLeft = VAdd(Collison.DownLeft, L_Push_BackPower);
+				Collison.UpLeft = VAdd(Collison.UpLeft, L_Push_BackPower);
+			}
+			else if (!TouchRight && TouchLeft)
+			{
+				/*Collison.DownRight = VAdd(Collison.DownRight, R_Push_BackPower);
+				Collison.UpRight = VAdd(Collison.UpRight,R_Push_BackPower);
+				Collison.DownLeft = VAdd(Collison.DownLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1));
+				Collison.UpLeft = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1 ));*/
+
+			}
+			else if (TouchRight && !TouchLeft)
+			{
+				/*Collison.DownLeft = VAdd(Collison.DownRight, L_Push_BackPower);
+				Collison.UpLeft = VAdd(Collison.UpRight, L_Push_BackPower);
+				Collison.DownRight = VAdd(Collison.DownLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1 ));
+				Collison.UpRight = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1 ));*/
+			}
+
+			else if (TouchRight && TouchLeft)
+			{
+				Collison.DownLeft = VAdd(Collison.DownRight, L_Push_BackPower);
+				Collison.UpLeft = VAdd(Collison.UpRight, L_Push_BackPower);
+				Collison.DownRight = VAdd(Collison.DownRight, R_Push_BackPower);
+				Collison.UpRight = VAdd(Collison.UpRight, R_Push_BackPower);
+
+			}
+			else
+			{
+				///Push_BackPowerを比でかけたものにかける
+				Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
+				Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
+				Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
+				Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
+			}
+			isChengeBlock = true;
+
+
+
+		}
+
+		//上線
+		UpHitSensor = HitCheck_Line_Triangle(Collison.UpLeft, Collison.UpRight, Apex[0], Apex[1], Apex[2]);
+		if (UpHitSensor.HitFlag)
+		{
+			VECTOR Push_BackPower;
+			Push_BackPower = Object::Push_Back_Vector(UpHitSensor.Position, Apex[0], Apex[1], Apex[2]);
+
+
+
+
+			Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
+			Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
+			Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
+			Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
+
+		}
+		///左辺
+
+		LeftHitSensor = HitCheck_Line_Triangle(Collison.UpLeft, Collison.DownLeft, Apex[0], Apex[1], Apex[2]);
+		if (LeftHitSensor.HitFlag)
+		{
+			VECTOR Push_BackPower;
+			Push_BackPower = Object::Push_Back_Vector(LeftHitSensor.Position, Apex[0], Apex[1], Apex[2]);
+
+
+
+
+			Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
+			Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
+			Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
+			Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
+
+		}
+
+		///右辺
+
+		RightHitSensor = HitCheck_Line_Triangle(Collison.UpRight, Collison.DownRight, Apex[0], Apex[1], Apex[2]);
+		if (RightHitSensor.HitFlag)
+		{
+			VECTOR Push_BackPower;
+			Push_BackPower = Object::Push_Back_Vector(RightHitSensor.Position, Apex[0], Apex[1], Apex[2]);
+
+
+
+
+
+			Collison.DownLeft = VSub(Collison.DownLeft, object.GetVelocity());
+			Collison.UpLeft = VSub(Collison.UpLeft, object.GetVelocity());
+			Collison.DownRight = VSub(Collison.DownRight, object.GetVelocity());
+			Collison.UpRight = VSub(Collison.UpRight, object.GetVelocity());
+
+
+		}
+
+
+	}
+}
+	
+
+
 void Map::HitCalc(Object& object)
 {
 	
@@ -231,152 +382,35 @@ void Map::HitCalc(Object& object)
 		{
 			if (MapData[Y][X] != -1)
 			{
-				///sprite[MapChipNumX][MapChipNumY]の頂点を取得
-				const VECTOR* Apex = sprite[Y][X]->GetApex();
+				PushOnBox(object, X, Y);
 				
-
-
-
-				//下線
-				DownHitSensor= HitCheck_Line_Triangle(Collison.DownLeft, Collison.DownRight, Apex[0], Apex[1], Apex[2]);
-				if (DownHitSensor.HitFlag)
+				
+				if (Y != 0&&Y!=MapChipNumY)
 				{
-					VECTOR Push_BackPower;
-					VECTOR R_Push_BackPower;
-					VECTOR L_Push_BackPower;
+					PushOnBox(object, X, Y - 1);
+					if (X != 0&&X!=MapChipNumX)
+					{
+					a
+					PushOnBox(object, X - 1, Y - 1);
+					PushOnBox(object, X + 1, Y - 1);
+					PushOnBox(object, X, Y + 1);
+					PushOnBox(object, X - 1, Y);
+					PushOnBox(object, X - 1, Y + 1);
+					PushOnBox(object, X + 1, Y);
+					PushOnBox(object, X + 1, Y + 1);
+				}
+			
 					
-					bool TouchRight= Object::isCollisonTriangle(Collison.DownRight, Apex[0], Apex[1], Apex[2]);
-					bool TouchLeft= Object::isCollisonTriangle(Collison.DownLeft, Apex[0], Apex[1], Apex[2]);
-
-					Push_BackPower = Object::Push_Back_Vector(DownHitSensor.Position, Apex[0], Apex[1], Apex[2]);
-					R_Push_BackPower = Object::Push_Back_Vector(Collison.DownRight, Apex[0], Apex[1], Apex[2]);
-					L_Push_BackPower = Object::Push_Back_Vector(Collison.DownLeft, Apex[0], Apex[1], Apex[2]);
-
 				
-					
-					//辺の長さを比
-					float OLL = VSize( VSub(Collison.DownRight, Collison.DownLeft));
-					float L_S = VSize( VSub(Collison.DownLeft, DownHitSensor.Position));
-					float R_S = VSize(VSub(Collison.DownRight, DownHitSensor.Position));
-
-					float Magnifivation_From_OLL_to_L = L_S / OLL;
-					float Magnifivation_From_OLL_to_R = R_S / OLL;
-
-					if (VSize(VSub(Collison.DownRight,DownHitSensor.Position))==0)
-					{
-						Collison.DownRight = VAdd(Collison.DownRight, R_Push_BackPower);
-						Collison.UpRight = VAdd(Collison.UpRight, R_Push_BackPower);
-						Collison.DownLeft = VAdd(Collison.DownLeft, R_Push_BackPower);
-						Collison.UpLeft = VAdd(Collison.UpLeft, R_Push_BackPower);
-					}
-					else if (VSize(VSub(Collison.DownLeft, DownHitSensor.Position)) == 0)
-					{
-						Collison.DownRight = VAdd(Collison.DownRight, L_Push_BackPower);
-1;						Collison.UpRight = VAdd(Collison.UpRight, L_Push_BackPower);
-						Collison.DownLeft = VAdd(Collison.DownLeft, L_Push_BackPower);
-						Collison.UpLeft = VAdd(Collison.UpLeft, L_Push_BackPower);
-					}
-					else if (!TouchRight && TouchLeft)
-					{
-						Collison.DownRight = VAdd(Collison.DownRight, R_Push_BackPower);
-						Collison.UpRight = VAdd(Collison.UpRight,R_Push_BackPower);
-						Collison.DownLeft = VAdd(Collison.DownLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1));
-						Collison.UpLeft = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1 ));
-
-					}
-					else if (TouchRight && !TouchLeft)
-					{
-						Collison.DownLeft = VAdd(Collison.DownRight, L_Push_BackPower);
-						Collison.UpLeft = VAdd(Collison.UpRight, L_Push_BackPower);
-						Collison.DownRight = VAdd(Collison.DownLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1 ));
-						Collison.UpRight = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1 ));
-					}
-
-					else if(TouchRight && TouchLeft)
-					{
-						Collison.DownLeft = VAdd(Collison.DownRight, L_Push_BackPower);
-						Collison.UpLeft = VAdd(Collison.UpRight, L_Push_BackPower);
-						Collison.DownRight = VAdd(Collison.DownRight, R_Push_BackPower);
-						Collison.UpRight = VAdd(Collison.UpRight, R_Push_BackPower);
-						
-					}
-					else
-					{
-						///Push_BackPowerを比でかけたものにかける
-						Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
-						Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
-						Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
-						Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
-					}
-					isChengeBlock = true;
-				
-					break;
 					
 				}
 				
-					//上線
-					UpHitSensor = HitCheck_Line_Triangle(Collison.UpLeft, Collison.UpRight, Apex[0], Apex[1], Apex[2]);
-					if (UpHitSensor.HitFlag)
-					{
-						VECTOR Push_BackPower;
-						Push_BackPower = Object::Push_Back_Vector(UpHitSensor.Position, Apex[0], Apex[1], Apex[2]);
 
 
 
-
-						Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
-						Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
-						Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
-						Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
-						break;
-					}
-					///左辺
-
-					LeftHitSensor = HitCheck_Line_Triangle(Collison.UpLeft, Collison.DownLeft, Apex[0], Apex[1], Apex[2]);
-					if (LeftHitSensor.HitFlag)
-					{
-						VECTOR Push_BackPower;
-						Push_BackPower = Object::Push_Back_Vector(LeftHitSensor.Position, Apex[0], Apex[1], Apex[2]);
-
-
-
-
-						Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
-						Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
-						Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
-						Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
-						break;
-
-					}
-
-					///右辺
-
-					RightHitSensor = HitCheck_Line_Triangle(Collison.UpRight, Collison.DownRight, Apex[0], Apex[1], Apex[2]);
-					if (RightHitSensor.HitFlag)
-					{
-						VECTOR Push_BackPower;
-						Push_BackPower = Object::Push_Back_Vector(RightHitSensor.Position, Apex[0], Apex[1], Apex[2]);
-
-
-
-
-
-						Collison.DownLeft = VSub(Collison.DownLeft,object.GetVelocity());
-						Collison.UpLeft = VSub(Collison.UpLeft,object.GetVelocity());
-						Collison.DownRight = VSub(Collison.DownRight,object.GetVelocity());
-						Collison.UpRight = VSub(Collison.UpRight,object.GetVelocity());
-
-						break;
-					}
-				
-				
-				
 
 			}
-
 		}
-
-
 	}
 	
 	///下辺を表すベクトル LR
@@ -403,14 +437,14 @@ void Map::HitCalc(Object& object)
 	
 	///傾ける値から回転力を追加する
 		///右下
-		Collison.DownRight = VAdd(Collison.DownLeft, VGet(object.GetWidth(), 0, 0));
-		Collison.DownRight = Object::RotFreeAxis(Collison.DownRight, Collison.DownLeft, MGetRotZ(rag / 2));
-        ////右上
-		Collison.UpRight = VAdd(Collison.DownRight, VGet(0, object.GetHeight(), 0));
-		Collison.UpRight = Object::RotFreeAxis(Collison.UpRight,Collison.DownRight,MGetRotZ(rag/2));
-		////左上
-		Collison.UpLeft = VAdd(Collison.DownLeft, VGet(0, object.GetHeight(), 0));
-		Collison.UpLeft = Object::RotFreeAxis(Collison.UpLeft, Collison.DownLeft, MGetRotZ(rag / 2));
+		//Collison.DownRight = VAdd(Collison.DownLeft, VGet(object.GetWidth(), 0, 0));
+		//Collison.DownRight = Object::RotFreeAxis(Collison.DownRight, Collison.DownLeft, MGetRotZ(rag / 2));
+  //      ////右上
+		//Collison.UpRight = VAdd(Collison.DownRight, VGet(0, object.GetHeight(), 0));
+		//Collison.UpRight = Object::RotFreeAxis(Collison.UpRight,Collison.DownRight,MGetRotZ(rag/2));
+		//////左上
+		//Collison.UpLeft = VAdd(Collison.DownLeft, VGet(0, object.GetHeight(), 0));
+		//Collison.UpLeft = Object::RotFreeAxis(Collison.UpLeft, Collison.DownLeft, MGetRotZ(rag / 2));
 
 		
 

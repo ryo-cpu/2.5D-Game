@@ -65,7 +65,7 @@ void Player::Update()
 	}
 	
 	///重力追加
-	/*dir = VAdd(dir, G);*/
+	dir = VAdd(dir, G);
 	// ゼロ除算避け
 	if (VSquareSize(dir) > 0)
 	{
@@ -104,11 +104,11 @@ void Player::Draw()
 	/*MV1DrawModel(modelHandle);*/
 	DrawTriangle3D(Collison.UpRight, Collison.DownRight, Collison.DownLeft, GetColor(255, 0, 0), FALSE);
 	DrawTriangle3D(Collison.UpLeft, Collison.UpRight, Collison.DownLeft, GetColor(255, 0, 0), FALSE);
-	/*DrawFormatString(0, 0, GetColor(255, 12, 3), "方向%f %f %f", dir.x, dir.y, dir.z);
+	DrawFormatString(0, 0, GetColor(255, 12, 3), "方向%f %f %f", dir.x, dir.y, dir.z);
 	DrawFormatString(0, 100, GetColor(255, 12, 3), "左下%f %f %f", Collison.DownLeft.x, Collison.DownLeft.y, Collison.DownLeft.z);
 	DrawFormatString(0, 200, GetColor(255, 12, 3), "左上%f %f %f", Collison.UpLeft.x, Collison.UpLeft.y, Collison.UpLeft.z);
 	DrawFormatString(0, 300, GetColor(255, 12, 3), "右下%f %f %f", Collison.DownRight.x, Collison.DownRight.y, Collison.DownRight.z);
-	DrawFormatString(0, 400, GetColor(255, 12, 3), "右上%f %f %f", Collison.UpRight.x, Collison.UpRight.y, Collison.UpRight.z);*/
+	DrawFormatString(0, 400, GetColor(255, 12, 3), "右上%f %f %f", Collison.UpRight.x, Collison.UpRight.y, Collison.UpRight.z);
 
 }
 

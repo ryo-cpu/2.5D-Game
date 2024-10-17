@@ -1,0 +1,3 @@
+﻿  Map.cpp
+C:\Users\student\Desktop\f]]\Map.cpp(393,6): error C2065: 'a': 定義されていない識別子です。
+C:\Users\student\Desktop\f]]\Map.cpp(394,6): error C2146: 構文エラー: ';' が、識別子 'PushOnBox' の前に必要です。

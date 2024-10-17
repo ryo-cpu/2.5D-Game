@@ -18,6 +18,7 @@ public:
 	void Draw(const  VECTOR &Ppos);
 	void Draw();
 	void HitCalc(Object&object);
+	void PushOnBox(Object& object,int x,int y);
 	
 
 
