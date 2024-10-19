@@ -269,16 +269,16 @@ bool Map::PushOnBox(HitBlock&Collison, int x, int y)
 			{
 				Collison.DownRight = VAdd(Collison.DownRight, R_Push_BackPower);
 				Collison.UpRight = VAdd(Collison.UpRight,R_Push_BackPower);
-				Collison.DownLeft = VAdd(Collison.DownLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1));
-				Collison.UpLeft = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1 ));
+				Collison.DownLeft = VAdd(Collison.DownLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1 / Magnifivation_From_OLL_to_R));
+				Collison.UpLeft = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1 / Magnifivation_From_OLL_to_R));
 
 			}
 			else if (TouchRight && !TouchLeft)
 			{
 				Collison.DownLeft = VAdd(Collison.DownRight, L_Push_BackPower);
 				Collison.UpLeft = VAdd(Collison.UpRight, L_Push_BackPower);
-				Collison.DownRight = VAdd(Collison.DownLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1 ));
-				Collison.UpRight = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1 ));
+				Collison.DownRight = VAdd(Collison.DownLeft, VScale(L_Push_BackPower, Magnifivation_From_OLL_to_R*-1 /Magnifivation_From_OLL_to_L));
+				Collison.UpRight = VAdd(Collison.UpLeft, VScale(L_Push_BackPower, Magnifivation_From_OLL_to_R*-1 / Magnifivation_From_OLL_to_L));
 			}
 
 			else if (TouchRight && TouchLeft)
