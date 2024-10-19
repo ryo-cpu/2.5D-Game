@@ -1,4 +1,8 @@
-﻿  Camera.cpp
-C:\Users\student\Desktop\f]]\Map.h(31,17): error C2061: 構文エラー: 識別子 'HitBlock'
-  (ソース ファイル 'Camera.cpp' をコンパイルしています)
+﻿  Map.cpp
+C:\Users\student\Desktop\f]]\Map.h(6,7): warning C4099: 'HitBlock': タイプ名は最初 'struct' として使われていましたが 'class' として使われています。
+  (ソース ファイル 'Map.cpp' をコンパイルしています)
+      C:\Users\student\Desktop\f]]\Object.h(3,8):
+      'HitBlock' の宣言を確認してください
   
+C:\Users\student\Desktop\f]]\Map.cpp(362,1): warning C4715: 'Map::PushOnBox': 値を返さないコントロール パスがあります。
+  MyDxLibGame3D.vcxproj -> C:\Users\student\Desktop\f]]\Debug\MyDxLibGame3D.exe

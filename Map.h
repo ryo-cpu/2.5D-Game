@@ -3,6 +3,7 @@
 #include <vector>
 class Object;
 class WorldSprite;
+class HitBlock;
 /// <summarMapChipNumY>
 /// 2Dの背景マップ
 /// </summarMapChipNumY>

@@ -267,18 +267,18 @@ bool Map::PushOnBox(HitBlock&Collison, int x, int y)
 			}
 			else if (!TouchRight && TouchLeft)
 			{
-				/*Collison.DownRight = VAdd(Collison.DownRight, R_Push_BackPower);
+				Collison.DownRight = VAdd(Collison.DownRight, R_Push_BackPower);
 				Collison.UpRight = VAdd(Collison.UpRight,R_Push_BackPower);
 				Collison.DownLeft = VAdd(Collison.DownLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1));
-				Collison.UpLeft = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1 ));*/
+				Collison.UpLeft = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_L*-1 ));
 
 			}
 			else if (TouchRight && !TouchLeft)
 			{
-				/*Collison.DownLeft = VAdd(Collison.DownRight, L_Push_BackPower);
+				Collison.DownLeft = VAdd(Collison.DownRight, L_Push_BackPower);
 				Collison.UpLeft = VAdd(Collison.UpRight, L_Push_BackPower);
 				Collison.DownRight = VAdd(Collison.DownLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1 ));
-				Collison.UpRight = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1 ));*/
+				Collison.UpRight = VAdd(Collison.UpLeft, VScale(R_Push_BackPower, Magnifivation_From_OLL_to_R*-1 ));
 			}
 
 			else if (TouchRight && TouchLeft)
@@ -383,9 +383,9 @@ void Map::HitCalc(Object& object)
 			if (MapData[Y][X] != -1)
 			{
 		
-			/*isChengeBlock=PushOnBox(Collison, X, Y);*/
+			isChengeBlock=PushOnBox(Collison, X, Y);
 			}
-			/*while(isChengeBlock)
+			while(isChengeBlock)
 			{
 				if (X >0&&X>MapChipNumX)
 				{
@@ -410,7 +410,7 @@ void Map::HitCalc(Object& object)
 				{
 					isChengeBlock=false;
 				}
-			}*/
+			}
 
 		}
 	}
