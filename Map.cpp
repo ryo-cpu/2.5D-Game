@@ -213,9 +213,8 @@ void Map::Draw()
 	}
 }
 
-void Map::PushOnBox(Object& object, int x, int y)
+bool Map::PushOnBox(HitBlock&Collison, int x, int y)
 {
-	HitBlock Collison = object.GetCollison();
 	bool isChengeBlock = false;
 	///一点ずつ当たってるか調べる
 	HITRESULT_LINE DownHitSensor;
@@ -350,14 +349,14 @@ void Map::PushOnBox(Object& object, int x, int y)
 
 
 
-			Collison.DownLeft = VSub(Collison.DownLeft, object.GetVelocity());
-			Collison.UpLeft = VSub(Collison.UpLeft, object.GetVelocity());
-			Collison.DownRight = VSub(Collison.DownRight, object.GetVelocity());
-			Collison.UpRight = VSub(Collison.UpRight, object.GetVelocity());
+			Collison.DownLeft = VAdd(Collison.DownLeft, Push_BackPower);
+			Collison.UpLeft = VAdd(Collison.UpLeft, Push_BackPower);
+			Collison.DownRight = VAdd(Collison.DownRight, Push_BackPower);
+			Collison.UpRight = VAdd(Collison.UpRight, Push_BackPower);
 
 
 		}
-
+		return isChengeBlock;
 
 	}
 }
@@ -380,43 +379,45 @@ void Map::HitCalc(Object& object)
 
 		for (int X = 0; MapChipNumX > X; X++)
 		{
+			
 			if (MapData[Y][X] != -1)
 			{
-				PushOnBox(object, X, Y);
-				
-				
-				if (Y != 0&&Y!=MapChipNumY)
-				{
-					PushOnBox(object, X, Y - 1);
-					if (X != 0&&X!=MapChipNumX)
-					{
-					a
-					PushOnBox(object, X - 1, Y - 1);
-					PushOnBox(object, X + 1, Y - 1);
-					PushOnBox(object, X, Y + 1);
-					PushOnBox(object, X - 1, Y);
-					PushOnBox(object, X - 1, Y + 1);
-					PushOnBox(object, X + 1, Y);
-					PushOnBox(object, X + 1, Y + 1);
-				}
-			
-					
-				
-					
-				}
-				
-
-
-
-
+		
+			/*isChengeBlock=PushOnBox(Collison, X, Y);*/
 			}
+			/*while(isChengeBlock)
+			{
+				if (X >0&&X>MapChipNumX)
+				{
+					isChengeBlock = PushOnBox(Collison, X - 1, Y);
+					isChengeBlock = PushOnBox(Collison, X + 1, Y);
+					if ((Y > 0 && Y> MapChipNumY))
+					{
+						isChengeBlock= PushOnBox(Collison, X - 1, Y+1);
+						isChengeBlock = PushOnBox(Collison, X -1, Y - 1);
+						isChengeBlock = PushOnBox(Collison, X + 1, Y +1);
+						isChengeBlock = PushOnBox(Collison, X + 1, Y - 1);
+
+					}
+
+				}
+				else if ((Y > 0 && Y > MapChipNumY))
+				{
+					isChengeBlock = PushOnBox(Collison, X, Y + 1);
+					isChengeBlock = PushOnBox(Collison, X, Y - 1);
+				}
+				else
+				{
+					isChengeBlock=false;
+				}
+			}*/
+
 		}
 	}
 	
 	///下辺を表すベクトル LR
 	VECTOR LR = VSub(Collison.DownRight,Collison.DownLeft);
-	if (isChengeBlock)
-	{
+
 		///下の辺の高低差を求める
 		
 		
@@ -437,20 +438,20 @@ void Map::HitCalc(Object& object)
 	
 	///傾ける値から回転力を追加する
 		///右下
-		//Collison.DownRight = VAdd(Collison.DownLeft, VGet(object.GetWidth(), 0, 0));
-		//Collison.DownRight = Object::RotFreeAxis(Collison.DownRight, Collison.DownLeft, MGetRotZ(rag / 2));
-  //      ////右上
-		//Collison.UpRight = VAdd(Collison.DownRight, VGet(0, object.GetHeight(), 0));
-		//Collison.UpRight = Object::RotFreeAxis(Collison.UpRight,Collison.DownRight,MGetRotZ(rag/2));
-		//////左上
-		//Collison.UpLeft = VAdd(Collison.DownLeft, VGet(0, object.GetHeight(), 0));
-		//Collison.UpLeft = Object::RotFreeAxis(Collison.UpLeft, Collison.DownLeft, MGetRotZ(rag / 2));
+		Collison.DownRight = VAdd(Collison.DownLeft, VGet(object.GetWidth(), 0, 0));
+		Collison.DownRight = Object::RotFreeAxis(Collison.DownRight, Collison.DownLeft, MGetRotZ(rag / 2));
+        ////右上
+		Collison.UpRight = VAdd(Collison.DownRight, VGet(0, object.GetHeight(), 0));
+		Collison.UpRight = Object::RotFreeAxis(Collison.UpRight,Collison.DownRight,MGetRotZ(rag/2));
+		////左上
+		Collison.UpLeft = VAdd(Collison.DownLeft, VGet(0, object.GetHeight(), 0));
+		Collison.UpLeft = Object::RotFreeAxis(Collison.UpLeft, Collison.DownLeft, MGetRotZ(rag / 2));
 
 		
 
 
 		
-	}
+	
 	
 
 	
